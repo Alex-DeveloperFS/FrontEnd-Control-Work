@@ -1,0 +1,16 @@
+import {useState} from "react";
+import axios, {AxiosError} from "axios";
+
+export const useDelete = (url: string) => {
+
+  const [error, setError] = useState<string | null>(null)
+  const del = async (id: string) => {
+    try {
+      const response = await axios.delete(`${url}/${id}`)
+      return response.data
+    } catch (error) {
+      setError(`Error deleting data, ${(error as AxiosError).message}`)
+    }
+  }
+  return {delete: del, error}
+}

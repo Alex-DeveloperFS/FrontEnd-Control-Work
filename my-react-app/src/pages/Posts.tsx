@@ -8,9 +8,10 @@ const Posts = () => {
     <div>
       <h1>Posts page</h1>
       {isLoading && <h2>Loading...</h2>}
-      {error && <h2 className="erorr">{error}</h2>}
+      {error && <h2 className="error">{error}</h2>}
       {!isLoading && !error && (
-        <ul>{!!posts.length && posts.map((post: PostInterface) => (<li key={post.id}>{post.title}</li>))}</ul>)}
+        <ul>{!!posts.length && posts.map((post: PostInterface) => <li key={post.id}>{post.title}</li>)}</ul>
+      )}
     </div>
   )
 }
