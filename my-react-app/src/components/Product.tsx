@@ -1,9 +1,10 @@
 import {ProductInterface} from "../types/Product.Interface.ts";
 import {FaTrash} from "react-icons/fa6";
 import {FaEdit} from "react-icons/fa";
-import axios, {AxiosError} from "axios";
+import {AxiosError} from "axios";
 import {API_URL} from "../utils/mockApi.ts";
 import {useDelete} from "../hooks/useDelete.ts";
+import EditProduct from "./EditProduct.tsx";
 
 interface ProductPropsInterface {
   product: ProductInterface,
@@ -33,7 +34,7 @@ const Product = ({product: {id, name, description, price, category, image}, relo
         <img className="product-item__image" src={image} alt={name}/>
         <div className="product-item__actions">
           <button className="product-item__delete" onClick={handleDeleteProduct}><FaTrash/></button>
-          <button className="product-item__edit"><FaEdit/></button>
+          <EditProduct product={{id, name, description, price, category, image}} reload={reload}><FaEdit/></EditProduct>
         </div>
       </li>
     </div>

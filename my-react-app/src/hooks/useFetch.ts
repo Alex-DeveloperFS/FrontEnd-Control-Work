@@ -16,7 +16,7 @@ export const useFetch = <T>(url: string, limit?: number, reload?: string) => {
       setIsLoading(true)
       console.log(url)
       try {
-        await new Promise((resolve) => setTimeout(resolve, 100))
+        await new Promise((resolve) => setTimeout(resolve, 20))
         const [response] = await Promise.all([axios.get<T>(limit ? `${url}?_limit=${limit}` : url, {
           cancelToken: canselToken.token,
         })])
