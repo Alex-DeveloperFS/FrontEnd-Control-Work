@@ -6,10 +6,7 @@ export const useFetch = <T>(url: string, limit?: number, reload?: string) => {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-
-
   useEffect(() => {
-
 
     const fetchData = async () => {
       const canselToken = axios.CancelToken.source()
@@ -26,6 +23,7 @@ export const useFetch = <T>(url: string, limit?: number, reload?: string) => {
         }
 
         setData(response.data)
+
       } catch (err) {
         if (axios.isCancel(err)) {
         } else {
@@ -39,3 +37,7 @@ export const useFetch = <T>(url: string, limit?: number, reload?: string) => {
   }, [url, limit, reload])
   return {data, error, isLoading}
 }
+
+
+
+

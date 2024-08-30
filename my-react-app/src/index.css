@@ -420,3 +420,24 @@ form {
     background-color: #f8f8f8;
     transform: translateY(-2px);
 }
+
+.pagination__indicators {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+.pagination__indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.pagination__indicator.active {
+    background-color: #333;
+}

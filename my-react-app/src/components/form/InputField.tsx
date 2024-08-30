@@ -16,7 +16,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldPropsInterface>(({id, 
       <div className="form-group">
         <label
           className="form-label"
-          htmlFor="id">
+          htmlFor={id}>
           {id.charAt(0).toUpperCase() + id.slice(1)}:
         </label>
 

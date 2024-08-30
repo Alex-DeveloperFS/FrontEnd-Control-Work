@@ -1,37 +1,37 @@
-import { UserInterface } from '../types/User.interface.ts'
+import { PostInterface } from '../types/Post.interface.ts'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from './store.ts'
 import { createFetchThunk } from './createFetchThunk.ts'
 
-interface UserStateInterface {
-  users: UserInterface[]
+interface PostsStateInterface {
+  posts: PostInterface[]
   error: string | null
   isLoading: boolean
 }
 
-const initialState: UserStateInterface = {
-  users: [],
+const initialState: PostsStateInterface = {
+  posts: [],
   error: null,
   isLoading: false
 }
 
-export const fetchAllUsers = createFetchThunk<UserInterface>('users/fetchAllUsers')
+export const fetchAllPosts = createFetchThunk<PostInterface>('posts/fetchAllPosts')
 
-export const usersSlice = createSlice<unknown>({
-  name: 'users',
+export const postsSlice = createSlice<unknown>({
+  name: 'posts',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllUsers.pending, (state) => {
+      .addCase(fetchAllPosts.pending, (state) => {
         state.isLoading = true
         state.error = null
       })
-      .addCase(fetchAllUsers.fulfilled, (state, action: PayloadAction<UserInterface[]>) => {
+      .addCase(fetchAllPosts.fulfilled, (state, action: PayloadAction<PostInterface[]>) => {
         state.isLoading = false
-        state.users = action.payload
+        state.posts = action.payload
       })
-      .addCase(fetchAllUsers.rejected, (state, action: PayloadAction<unknown>) => {
+      .addCase(fetchAllPosts.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false
         if (action.payload instanceof Error) {
           state.error = action.payload.message
@@ -42,8 +42,8 @@ export const usersSlice = createSlice<unknown>({
   }
 })
 
-export const selectUsers = (state: RootState) => state.users.users
-export const selectUsersLoading = (state: RootState) => state.users.isLoading
-export const selectUsersError = (state: RootState) => state.users.error
+export const selectPosts = (state: RootState) => state.posts.posts
+export const selectPostsLoading = (state: RootState) => state.posts.isLoading
+export const selectPostsError = (state: RootState) => state.posts.error
 
-export default usersSlice.reducer
+export default postsSlice.reducer

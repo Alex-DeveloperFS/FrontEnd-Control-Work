@@ -10,3 +10,14 @@ export function createUrl(page: string | number, name: string, sort: string, ord
   order && urlObj.searchParams.set('order', `${order}`)
   return urlObj.toString()
 }
+
+
+export function createUrlCount(page: string | number, name: string, sort: string, order: string): string {
+  const urlObj: URL = new URL(API_URL);
+  urlObj.searchParams.set('page', `${page}`);
+  if (name) urlObj.searchParams.set('name', name);
+  if (sort) urlObj.searchParams.set('sortBy', sort);
+  if (order) urlObj.searchParams.set('order', order);
+  return urlObj.toString();
+}
+

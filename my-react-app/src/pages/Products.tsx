@@ -1,14 +1,15 @@
 import {ProductInterface} from "../types/Product.Interface.ts";
 import {useFetch} from "../hooks/useFetch.ts";
-import {API_ITEMS_PER_PAGE_LIMIT, createUrl} from "../utils/mockApi.ts";
-import {useRef, useState} from "react";
+import {API_ITEMS_PER_PAGE_LIMIT, createUrl, createUrlCount, } from "../utils/mockApi.ts";
+import {useEffect, useRef, useState} from "react";
 import Product from "../components/Product.tsx";
 import AddProduct from "../components/AddProduct.tsx";
 import {debounce} from "../utils/debounce.ts";
-import {ORDER_BY_LIST, OrderByListInterface, SORT_BY_LIST, SortByListInterface} from "../data/mockData.ts";
+import {ORDER_BY_LIST,  SORT_BY_LIST, } from "../data/mockData.ts";
 import {MdRefresh} from "react-icons/md";
 import InputField from "../components/form/InputField.tsx";
 import SelectField from "../components/form/SelectField.tsx";
+import axios from "axios";
 
 
 const Products = () => {
@@ -20,11 +21,7 @@ const Products = () => {
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const {
-    data: products,
-    error,
-    isLoading
-  } = useFetch<ProductInterface>(createUrl(page, name, sort, order), undefined, reload)
+  const { data: products, error, isLoading} = useFetch<ProductInterface>(createUrl(page, name, sort, order), undefined, reload)
 
   const debouncedSetName = debounce(setName, 1000)
 
@@ -34,6 +31,11 @@ const Products = () => {
     setOrder('')
     inputRef.current && (inputRef.current.value = '')
   }
+
+  const totalCount = useFetch<ProductInterface>(createUrlCount(page, name, sort, order))
+
+  console.log(totalCount.data.length)
+
 
   return (
     <div>
@@ -77,6 +79,8 @@ const Products = () => {
                       onClick={() => setPage(prevState => prevState - 1)}>
                 Previous page
               </button>
+
+
 
               <button className="pagination__btn"
                       disabled={products.length < API_ITEMS_PER_PAGE_LIMIT}
