@@ -1,104 +1,182 @@
-import {ProductInterface} from "../types/Product.Interface.ts";
-import {useFetch} from "../hooks/useFetch.ts";
-import {API_ITEMS_PER_PAGE_LIMIT, createUrl, createUrlCount, } from "../utils/mockApi.ts";
-import {useEffect, useRef, useState} from "react";
-import Product from "../components/Product.tsx";
-import AddProduct from "../components/AddProduct.tsx";
-import {debounce} from "../utils/debounce.ts";
-import {ORDER_BY_LIST,  SORT_BY_LIST, } from "../data/mockData.ts";
-import {MdRefresh} from "react-icons/md";
-import InputField from "../components/form/InputField.tsx";
-import SelectField from "../components/form/SelectField.tsx";
-import axios from "axios";
-
+import { useState, useEffect, useCallback, useRef } from 'react'
+import Product from '../components/Product.tsx'
+import AddProduct from '../components/AddProduct.tsx'
+import { debounce } from '../utils/debounce.ts'
+import { ORDER_BY_LIST, SORT_BY_LIST, PRODUCT_CATEGORIES } from '../data/mockData.ts'
+import { MdRefresh } from 'react-icons/md'
+import InputField from '../components/form/InputField.tsx'
+import SelectField from '../components/form/SelectField.tsx'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../redux/store.ts'
+import { fetchAllProducts, selectProducts, selectProductsError, selectProductsLoading } from '../redux/productsSlice.ts'
+import { createUrl, createUrlCount, API_ITEMS_PER_PAGE_LIMIT } from '../utils/mockApi.ts'
+import { useFetch } from "../hooks/useFetch.ts"
+import useBrands from "../hooks/useBrands.ts"
+import {ToastContainer} from "react-toastify";
 
 const Products = () => {
   const [page, setPage] = useState(1)
   const [name, setName] = useState('')
   const [sort, setSort] = useState('')
   const [order, setOrder] = useState('')
-  const [reload, setReload] = useState('0')
+  const [category, setCategory] = useState('')
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
+  const [reload, setReload] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const { data: products, error, isLoading} = useFetch<ProductInterface>(createUrl(page, name, sort, order), undefined, reload)
+  const dispatch = useDispatch<AppDispatch>()
+  const products = useSelector(selectProducts)
+  const isLoading = useSelector(selectProductsLoading)
+  const error = useSelector(selectProductsError)
+  const { isLogged } = useSelector((state: RootState) => state.auth)
 
-  const debouncedSetName = debounce(setName, 1000)
+  const { brands, loading: brandsLoading, error: brandsError } = useBrands()
 
-  const resetFilters = () => {
+  useEffect(() => {
+    dispatch(fetchAllProducts(createUrl(page, name, sort, order, category, selectedBrand ? [selectedBrand] : [])))
+  }, [page, name, sort, order, category, selectedBrand, reload, dispatch])
+
+  const debouncedSetName = useCallback(debounce(setName, 1000), [])
+
+  const resetFilters = useCallback(() => {
     setName('')
     setSort('')
     setOrder('')
-    inputRef.current && (inputRef.current.value = '')
+    setCategory('')
+    setSelectedBrand(null)
+    if (inputRef.current) {
+      inputRef.current.value = ''
+    }
+  }, [])
+
+  const handleBrandChange = useCallback((brand: string) => {
+    setSelectedBrand(brand)
+  }, [])
+
+  const productCount = useFetch<ProductInterface>(createUrlCount(page, name, sort, order, category, selectedBrand ? [selectedBrand] : []))
+  const pageCount = productCount.data ? Math.ceil(productCount.data.length / API_ITEMS_PER_PAGE_LIMIT) : 0
+
+  const reloadProducts = () => {
+
+    setReload(prev => !prev);
+
+    const totalProducts = productCount.data.length;
+    const totalPages = Math.ceil(totalProducts / API_ITEMS_PER_PAGE_LIMIT);
+
+    setPage(prevPage => {
+      if (prevPage === 1 && totalPages > 1) {
+        return totalPages + 1
+      } else {
+      prevPage = 1
+      }
+      return prevPage
+    })
   }
 
-  const totalCount = useFetch<ProductInterface>(createUrlCount(page, name, sort, order))
-
-  console.log(totalCount.data.length)
-
-
   return (
-    <div>
-      <h1>Products list page</h1>
-      <div className="products-filter">
-        <InputField
-          type="text"
-          id="filter"
-          ref={inputRef}
-          placeholder="Filter products by name..."
-          onChange={e => debouncedSetName(e.target.value)}
-        />
+    <div className="box">
+      <div className="filters-menu">
+        <h2>Filters</h2>
+        <div className="category-buttons">
+          {PRODUCT_CATEGORIES.map((cat) => (
+            <button
+              key={cat.value}
+              className={`category-btn ${category === cat.value ? 'active' : ''}`}
+              onClick={() => setCategory(cat.value)}
+            >
+              {cat.text}
+            </button>
+          ))}
+        </div>
+        <div className="brand-buttons">
+          <h3>Brands</h3>
+          {brandsLoading && <p>Loading brands...</p>}
+          {brandsError && <p>{brandsError}</p>}
 
-        <SelectField
-          id={sort}
-          value={sort}
-          onChange={(e) => setSort(e.target.value)}
-          options={SORT_BY_LIST} />
-
-        <SelectField
-          id={order}
-          value={order}
-          onChange={(e) => setOrder(e.target.value)}
-          options={ORDER_BY_LIST} />
-
-        <button className="form-button" onClick={resetFilters}><MdRefresh/></button>
-
+          {!brandsLoading && !brandsError && brands.map((brand) => (
+            <button
+              key={brand}
+              className={`brand-btn ${selectedBrand === brand ? 'active' : ''}`}
+              onClick={() => handleBrandChange(brand)}
+            >
+              {brand}
+            </button>
+          ))}
+          <button onClick={resetFilters}>Reset filters</button>
+        </div>
       </div>
 
-      {isLoading && <p className="loading">Loading...</p>}
-      {error && <p className="error">{error}</p>}
-      {!isLoading && !error && (
-        <div className="content">
+      <div>
+        <h1>Products List Page</h1>
 
-          <div className="buttons-group">
-            <AddProduct/>
+        <div className="products-filter">
+          <InputField
+            ref={inputRef}
+            id="filter"
+            type="text"
+            placeholder="Filter products by name..."
+            onChange={(e) => debouncedSetName(e.target.value)}
+          />
 
-            <div className="pagination">
-              <button className="pagination__btn"
-                      disabled={page === 1}
-                      onClick={() => setPage(prevState => prevState - 1)}>
-                Previous page
-              </button>
+          <SelectField id="sort" value={sort} onChange={(e) => setSort(e.target.value)} options={SORT_BY_LIST} />
+          <SelectField id="order" value={order} onChange={(e) => setOrder(e.target.value)} options={ORDER_BY_LIST} />
 
-
-
-              <button className="pagination__btn"
-                      disabled={products.length < API_ITEMS_PER_PAGE_LIMIT}
-                      onClick={() => setPage(prevState => prevState + 1)}>
-                Next page
-              </button>
-            </div>
-          </div>
-
-          <ul className="products-list">
-            {!!products.length &&
-              products.map((product: ProductInterface) => (
-                <Product product={product} reload={() => setReload(product.id + Date.now())} key={product.id}/>
-              ))}
-          </ul>
+          <button onClick={resetFilters}>
+            <MdRefresh />
+          </button>
         </div>
-      )}
+
+        {isLoading && <p className="loading">Loading...</p>}
+        {error && <p className="error">Продукты не найдены</p>}
+        {!isLoading && !error && (
+          <div className="content">
+            <div className="buttons-group">
+              {isLogged && (
+                <AddProduct reloadProduct={reloadProducts} />
+              )}
+
+              <div className="pagination">
+                <button
+                  className="pagination__btn"
+                  disabled={page === 1}
+                  onClick={() => setPage((prevState) => prevState - 1)}
+                >
+                  Previous page
+                </button>
+
+                {[...Array(pageCount)].map((_, i) => (
+                  <button
+                    key={i + 1}
+                    className={`pagination__btn ${page === i + 1 ? 'active' : ''}`}
+                    onClick={() => setPage(i + 1)}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+
+                <button
+                  className="pagination__btn"
+                  disabled={products.length < API_ITEMS_PER_PAGE_LIMIT}
+                  onClick={() => setPage((prevState) => prevState + 1)}
+                >
+                  Next page
+                </button>
+              </div>
+            </div>
+
+            <ul className="products-list">
+              {!!products.length &&
+                products.map((product: ProductInterface) => (
+                  <Product key={product.id} product={product} reloadProduct={reloadProducts} />
+                ))}
+            </ul>
+          </div>
+        )}
+          <ToastContainer />
+      </div>
     </div>
   )
 }
-export default Products
+
+export default Products;

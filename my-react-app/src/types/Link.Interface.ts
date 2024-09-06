@@ -1,4 +1,4 @@
-interface LinlInterface {
-  path: string,
+export interface LinkInterface {
+  path: string
   name: string
 }

@@ -16,13 +16,12 @@ const Modal = ({children, onClose}: ModalPropsInterface) => {
   return createPortal(
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={handleContentClick}>
-        <span className="modal__close" onClick={onClose}>
-          x
-        </span>
+        <button className="buy-form-close" onClick={onClose}>×</button>
         {children}
       </div>
     </div>,
     modalRoot
   )
 }
+
 export default Modal

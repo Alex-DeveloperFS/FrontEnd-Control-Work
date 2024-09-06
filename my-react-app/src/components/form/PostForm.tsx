@@ -1,42 +1,35 @@
-import {FormEvent, useState} from 'react'
-import InputField from './InputField.tsx'
+import { FormEvent, useState } from 'react';
+import InputField from './InputField.tsx';
 
 
 interface PostFormPropsInterface {
-  onSubmit: (post: Partial<ProstInterface>) => void
-  post: Partial<postInterface>
+  onSubmit: (post: PostInterface) => void;
+  post: PostInterface;
 }
 
-const PostForm = ({onSubmit, post}: PostFormPropsInterface) => {
-  const [id, setId] = useState(post.id as number)
-  const [description, setDescription] = useState(post.description as string)
-  const [title, setTitle] = useState(post.title as string)
-  const [image, setImage] = useState(post.image as string)
-
+const PostForm = ({ onSubmit, post }: PostFormPropsInterface) => {
+  const [id, setId] = useState(post.id);
+  const [description, setDescription] = useState(post.description);
+  const [title, setTitle] = useState(post.title);
+  const [image, setImage] = useState(post.image);
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const returnedPost: Partial<PostInterface> = {id, title, description, image}
+    const updatedPost: PostInterface = { id, title, description, image };
 
-    if (post.id) {
-      returnedPost.id = post.id
-    }
-    onSubmit(returnedPost)
-  }
+    onSubmit(updatedPost);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputField
-        id="id"
-        value={id}
-        onChange={(e) => setId(e.target.value)}
-        placeholder="Post Id..."/>
+
       <InputField
         id="title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Post title..."/>
+        placeholder="Post title..."
+      />
       <InputField
         id="description"
         textarea
@@ -57,7 +50,7 @@ const PostForm = ({onSubmit, post}: PostFormPropsInterface) => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default PostForm
+export default PostForm;

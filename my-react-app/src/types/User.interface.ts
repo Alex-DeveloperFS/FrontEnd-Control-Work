@@ -1,8 +1,10 @@
 export interface UserInterface {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  website: string;
+  id: string
+  createdAt: string
+  usersData: {
+    username: string
+    email: string
+    password: string
+    confirmPassword: string
+  }
 }

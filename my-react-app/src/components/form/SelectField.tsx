@@ -1,5 +1,5 @@
 import {ChangeEvent} from "react"
-import {ProductCategoriesInterface} from "../../data/mockData.ts";
+import {ProductCategoriesInterface} from "../../data/mockData.ts"
 
 interface SelectFieldPropsInterface {
   id: string,
@@ -35,4 +35,5 @@ const SelectField = ({id, value, onChange, options, required = true}: SelectFiel
     </div>
   )
 }
+
 export default SelectField

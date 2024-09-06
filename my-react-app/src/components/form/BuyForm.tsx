@@ -1,7 +1,8 @@
-
 import {FormEvent, useState} from 'react'
 import InputField from './InputField.tsx'
-import {ProductInterface} from "../../types/Product.Interface.ts";
+import {ProductInterface} from "../../types/Product.Interface.ts"
+import {clearBasket} from "../../redux/basketSlice.ts"
+import {useDispatch} from "react-redux"
 
 interface UserInterface {
   name: string;
@@ -11,41 +12,36 @@ interface UserInterface {
 }
 
 interface ProductFormPropsInterface {
-  onSubmit: (deal: any) => void;
-  products: Array<ProductInterface & { quantity: number; totalPrice: number }>;
-  totalQuantity: number;
-  totalPrice: number;
-  usersBuyer: UserInterface;
-  onClose: () => void; // Функция для закрытия формы
+  onSubmit: (deal: any) => void
+  products: Array<ProductInterface & { quantity: number; totalPrice: number }>
+  totalQuantity: number
+  totalPrice: number
+  usersBuyer: UserInterface
+  onClose: () => void
 }
 
-const BuyForm2 = ({
-                    onSubmit,
-                    products,
-                    totalQuantity,
-                    totalPrice,
-                    usersBuyer,
-                    onClose
-                  }: ProductFormPropsInterface) => {
-  const [name, setName] = useState(usersBuyer.name);
-  const [surname, setSurname] = useState(usersBuyer.surname);
-  const [phone, setPhone] = useState(usersBuyer.phone);
-  const [email, setEmail] = useState(usersBuyer.email);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+const BuyForm = ({onSubmit, products, totalQuantity, totalPrice, usersBuyer, onClose}: ProductFormPropsInterface) => {
 
+  const [name, setName] = useState(usersBuyer.name)
+  const [surname, setSurname] = useState(usersBuyer.surname)
+  const [phone, setPhone] = useState(usersBuyer.phone)
+  const [email, setEmail] = useState(usersBuyer.email)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const dispatch = useDispatch()
 
   const handleBuy = async (e: FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
+    e.preventDefault()
+    setIsSubmitting(true)
+    setError(null)
 
     const returnedDeal = {
       products,
       totalQuantity,
       totalPrice,
-      usersBuyer: { name, surname, phone, email }
-    };
+      usersBuyer: {name, surname, phone, email}
+    }
 
     try {
       const response = await fetch('https://66a4ef2a5dc27a3c190a3666.mockapi.io/buyer', {
@@ -54,24 +50,25 @@ const BuyForm2 = ({
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(returnedDeal)
-      });
+      })
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
 
-      // Обработка успешного ответа
       console.log('Deal submitted successfully:', await response.json());
       onSubmit(returnedDeal);
       onClose();
+      dispatch(clearBasket())
+
     } catch (error) {
-      // Обработка ошибки
       console.error('Error submitting deal:', error);
       setError('Error submitting your order. Please try again.');
+
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }
 
   return (
     <div className="buy-form-container">
@@ -117,13 +114,14 @@ const BuyForm2 = ({
           <button className="form-button" type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Submitting...' : 'Buy Now'}
           </button>
+
           <button className="form-button" type="button" onClick={onClose}>
             Close
           </button>
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default BuyForm2
+export default BuyForm

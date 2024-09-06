@@ -1,26 +1,24 @@
-import {ChangeEvent, forwardRef} from "react";
+import { ChangeEvent, forwardRef } from 'react'
 
 interface InputFieldPropsInterface {
-  id: string,
-  type?: string,
-  value?: string,
-  onChange?: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
-  placeholder: string,
-  required?: boolean,
-  textArea?: boolean,
+  id: string
+  type?: string
+  value?: string
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  placeholder: string
+  required?: boolean
+  textarea?: boolean
 }
 
-const InputField = forwardRef<HTMLInputElement, InputFieldPropsInterface>(({id, type, value, onChange, placeholder, required = true, textArea = false}, ref) => {
-
+const InputField = forwardRef<HTMLInputElement, InputFieldPropsInterface>(
+  ({ id, value, type, onChange, placeholder, required = true, textarea = false }, ref) => {
     return (
       <div className="form-group">
-        <label
-          className="form-label"
-          htmlFor={id}>
+        <label className="form-label" htmlFor={id}>
           {id.charAt(0).toUpperCase() + id.slice(1)}:
         </label>
 
-        {textArea ? (
+        {textarea ? (
           <textarea
             className="form-control"
             id={id}
@@ -45,4 +43,5 @@ const InputField = forwardRef<HTMLInputElement, InputFieldPropsInterface>(({id, 
     )
   }
 )
+
 export default InputField

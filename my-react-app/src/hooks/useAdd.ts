@@ -1,6 +1,6 @@
-import {useState} from "react";
-import {ProductInterface} from "../types/Product.Interface.ts";
-import axios from "axios";
+import { useState } from 'react'
+import { ProductInterface } from '../types/Product.interface.ts'
+import axios from 'axios'
 
 export const useAdd = (url: string) => {
   const [error, setError] = useState<string | null>(null)
@@ -13,5 +13,5 @@ export const useAdd = (url: string) => {
     }
   }
 
-  return {add, error}
+  return { add, error }
 }

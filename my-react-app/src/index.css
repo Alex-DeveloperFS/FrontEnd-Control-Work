@@ -6,8 +6,9 @@
 }
 
 body {
-    font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    color: black;
+    font-family: "Roboto Slab", serif;
+    font-weight: 600;
+    font-style: normal;
     overflow-y: scroll;
 }
 
@@ -76,40 +77,7 @@ h1 {
 }
 
 /* navbar */
-.navbar {
-    padding: 20px 0;
-    background-color: #3498db;
-    margin-bottom: 40px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
 
-.navbar__list {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.navbar__link {
-    display: block;
-    padding: 10px 20px;
-    border-radius: 4px;
-    background-color: #ffffff;
-    color: #3498db;
-    transition: all 0.3s ease-in-out;
-    font-size: 1rem;
-    line-height: 1.25;
-    border: none;
-}
-
-.navbar__link:hover {
-    background-color: #f8f8f8;
-    transform: scale(1.1);
-}
-
-.navbar__link.active {
-    background: linear-gradient(45deg, #9b59b6, #3498db);
-    color: white;
-}
 
 /* products-empty */
 .products-empty {
@@ -160,6 +128,25 @@ h1 {
 
 .products-filter input::placeholder {
     color: #888888;
+}
+
+
+.box {
+    display: flex;
+    gap: 50px;
+}
+
+.filters-menu {
+    width: 30%;
+    background-color: cornflowerblue;
+}
+
+.price-filter {
+    margin-top: 10px;
+}
+
+.price-filter input {
+    margin-right: 10px;
 }
 
 /* products-list */
@@ -254,6 +241,27 @@ h1 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.product-item__buy, .product-item__add-to-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #e74c3c;
+}
+
+.product-item__add-to-cart:hover, .product-item__buy:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
 .product-item__delete {
     background-color: #e74c3c;
 }
@@ -345,7 +353,7 @@ h1 {
     background: white;
     padding: 40px;
     border-radius: 4px;
-    width: 80%;
+    width: 100%;
     max-width: 500px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -371,6 +379,16 @@ h1 {
 /* form */
 form {
     display: grid;
+    gap: 20px;
+    background: linear-gradient(135deg, #3498db, #9b59b6);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.buy-form {
+    display: flex;
+    flex-direction: column;
     gap: 20px;
     background: linear-gradient(135deg, #3498db, #9b59b6);
     padding: 30px;
@@ -421,23 +439,308 @@ form {
     transform: translateY(-2px);
 }
 
-.pagination__indicators {
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.pagination__btn {
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination__btn:hover {
+    background-color: #ddd;
+}
+
+.pagination__btn.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.pagination__btn:disabled {
+    background-color: #e0e0e0;
+    color: #999;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+.buy-form-container {
+    position: relative;
+}
+
+.buy-form-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+.basket-icon {
+    position: relative;
+    font-size: 24px; /* Настройте размер иконки по вашему желанию */
+}
+
+.basket-icon__count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red; /* Цвет фона индикатора */
+    color: white; /* Цвет текста индикатора */
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px; /* Размер шрифта индикатора */
+    font-weight: bold;
+    text-align: center;
+}
+
+.basket {
+    position: relative;
+}
+
+/* styles.css */
+.register-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.register-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.register-form div {
+    margin-bottom: 15px;
+}
+
+.register-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.register-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.register-form input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.register-form p {
+    color: #e74c3c;
+    font-size: 0.875em;
+    margin: 5px 0;
+}
+
+.register-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.125em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-form button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+.posts-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.posts-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.loading, .error {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #f00; /* Цвет для ошибок */
+}
+
+.error {
+    color: #f00; /* Красный цвет для ошибок */
+}
+
+.posts-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.post-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.post-description {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.post-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.posts-box {
+    display: flex;
+    gap: 30px;
+}
+
+.posts-menu {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    gap: 20px;
+    top: 150px;
+    bottom: 0;
+    height: 100vh;
+}
+
+.button-prev {
+    position: fixed;
+    bottom: 20px; /* Расположите кнопку внизу страницы */
+    right: 20px; /* Расположите кнопку справа */
+    padding: 10px 20px;
+    background-color: #007bff; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none; /* Скрываем кнопку по умолчанию */
+    z-index: 1000; /* Убедитесь, что кнопка отображается поверх другого контента */
+}
+
+.button-prev.show {
+    display: block; /* Показываем кнопку, когда у нее есть класс show */
+}
+
+.post-item__actions {
+    display: flex;
+    gap: 50px;
+}
+
+.post-item__delete {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 10px;
+    gap: 5px;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #e74c3c;
 }
 
-.pagination__indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ccc;
-    margin: 0 5px;
+.post-item__edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px 10px;
     border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #1e6bff;
+}
+
+.post-item__actions-admin {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 50px;
+    justify-content: center;
+}
+
+.brand-btn {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    margin: 5px;
     cursor: pointer;
 }
 
-.pagination__indicator.active {
-    background-color: #333;
+.brand-btn.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination__btn {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.pagination__btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination__btn.active {
+    background-color: #0056b3;
 }

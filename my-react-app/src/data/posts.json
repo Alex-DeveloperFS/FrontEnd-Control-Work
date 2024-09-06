@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "title": "The Latest Trends in Computer Technology",
+    "image": "https://loremflickr.com/640/480/computers",
+    "description": "Explore the latest advancements in computer technology, including powerful processors, innovative designs, and cutting-edge hardware that are shaping the future of computing."
+  },
+  {
+    "id": "2",
+    "title": "Top 10 Smartphones of 2024",
+    "image": "https://loremflickr.com/640/480/smartphones",
+    "description": "Discover the top smartphones of 2024 with reviews on their features, performance, and design. Find the perfect phone to meet your needs and preferences."
+  },
+  {
+    "id": "3",
+    "title": "Must-Have Accessories for Your New PC",
+    "image": "https://loremflickr.com/640/480/pc-accessories",
+    "description": "Enhance your computing experience with these essential PC accessories. From ergonomic keyboards to high-quality mice, find out what accessories can improve your setup."
+  },
+  {
+    "id": "4",
+    "title": "Comparing the Best Laptops for Gamers",
+    "image": "https://loremflickr.com/640/480/laptops",
+    "description": "A comprehensive comparison of the best laptops for gaming. Learn about the top models, their specifications, and how they handle the latest games and graphics."
+  },
+  {
+    "id": "5",
+    "title": "The Evolution of Mobile Phones Over the Decades",
+    "image": "https://loremflickr.com/640/480/mobile",
+    "description": "A look back at the evolution of mobile phones, from the early brick phones to the latest smartphones with advanced technology and features."
+  },
+  {
+    "id": "6",
+    "title": "Essential Accessories for Your Smartphone",
+    "image": "https://loremflickr.com/640/480/smartphone-accessories",
+    "description": "Discover the essential accessories for your smartphone, including protective cases, screen protectors, and chargers that enhance functionality and protect your device."
+  },
+  {
+    "id": "7",
+    "title": "How to Choose the Right Monitor for Your Setup",
+    "image": "https://loremflickr.com/640/480/monitors",
+    "description": "Find the perfect monitor for your needs with this guide on screen resolution, size, and features. Whether for gaming, work, or entertainment, choose the monitor that suits you best."
+  },
+  {
+    "id": "8",
+    "title": "The Future of Wearable Technology",
+    "image": "https://loremflickr.com/640/480/wearable-tech",
+    "description": "Explore the future of wearable technology, from smartwatches to fitness trackers. Learn about emerging trends and how wearables are becoming an integral part of our daily lives."
+  },
+  {
+    "id": "9",
+    "title": "Top 5 Computer Accessories for Creative Professionals",
+    "image": "https://loremflickr.com/640/480/creative-accessories",
+    "description": "A guide to the top computer accessories that every creative professional should have. Discover tools and gadgets that can boost productivity and enhance your creative projects."
+  },
+  {
+    "id": "10",
+    "title": "The Best Budget-Friendly Phones of 2024",
+    "image": "https://loremflickr.com/640/480/budget-phones",
+    "description": "Check out the best budget-friendly phones of 2024 that offer great performance and features without breaking the bank. Ideal for those looking for value and functionality."
+  }
+]

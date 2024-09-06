@@ -1,9 +1,7 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ProductInterface} from "../types/Product.Interface.ts";
-import {UserInterface} from "../types/User.interface.ts";
-import {fetchAllUsers} from "./userSlice.ts";
-import {createFetchThunk} from "./createFetchThunk.ts";
-import {RootState} from "./store.ts";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ProductInterface } from '../types/Product.interface.ts'
+import { createFetchThunk } from './createFetchThunk.ts'
+import { RootState } from './store.ts'
 
 interface ProductStateInterface {
   products: ProductInterface[]
@@ -14,29 +12,34 @@ interface ProductStateInterface {
 const initialState: ProductStateInterface = {
   products: [],
   error: null,
-  isLoading: false,
+  isLoading: false
 }
 
-export const fetchAllProducts = createFetchThunk<ProductInterface>('users/fetchAllProducts')
+export const fetchAllProducts = createFetchThunk<ProductInterface>('posts/fetchAllProducts')
 
-const productsSlice = createSlice({
+const productsSlice = createSlice<unknown>({
   name: 'products',
-  initialState: [],
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllUsers.pending, (state: ProductStateInterface) => {
+
+      .addCase(fetchAllProducts.pending, (state) => {
         state.isLoading = true
         state.error = null
       })
-      .addCase(fetchAllUsers.fulfilled, (state: ProductStateInterface, action: PayloadAction<UserInterface[]>) => {
+
+      .addCase(fetchAllProducts.fulfilled, (state, action: PayloadAction<ProductInterface[]>) => {
         state.isLoading = false
         state.products = action.payload
       })
-      .addCase(fetchAllUsers.rejected, (state: ProductStateInterface, action: PayloadAction<unknown>) => {
+
+      .addCase(fetchAllProducts.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false
+
         if (action.payload instanceof Error) {
           state.error = action.payload.message
+
         } else {
           state.error = 'An error occurred'
         }

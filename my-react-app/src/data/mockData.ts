@@ -42,12 +42,12 @@ export const PRODUCT_CATEGORIES: ProductCategoriesInterface[] = [
 
 
 export const INITIAL_PRODUCT: Partial<ProductInterface> = {
-  name: 'AMD Radeon RX 7800 XT Graphics Card',
-  description:
-    'The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J',
-  price: 386.00,
-  image: 'https://loremflickr.com/640/480/random',
-  category: 'Graphics Cards'
+  name: '',
+  brand: '',
+  description: '',
+  price: '',
+  image: '',
+  category: ''
 }
 
 export interface SortByListInterface {
@@ -89,3 +89,13 @@ export const ORDER_BY_LIST: OrderByListInterface[] = [
     text: 'Descending'
   }
 ]
+
+export const INITIAL_POST: Partial<PostInterface> = {
+  id: '',
+  title: '',
+  description: '',
+  image: ''
+}
+
+
+
