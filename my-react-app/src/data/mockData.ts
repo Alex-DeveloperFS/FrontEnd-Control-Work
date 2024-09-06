@@ -58,19 +58,19 @@ export interface SortByListInterface {
 export const SORT_BY_LIST: SortByListInterface[] = [
   {
     value: '',
-    text: 'Default order'
+    text: 'Sort by default'
   },
   {
     value: 'price',
-    text: 'Price'
+    text: 'Sort by price'
   },
   {
     value: 'name',
-    text: 'Name'
+    text: 'Sort by name'
   },
   {
     value: 'category',
-    text: 'Category'
+    text: 'Sort by category'
   }
 ]
 
@@ -82,11 +82,11 @@ export interface OrderByListInterface {
 export const ORDER_BY_LIST: OrderByListInterface[] = [
   {
     value: 'asc',
-    text: 'Ascending'
+    text: 'Sort ascending'
   },
   {
     value: 'desc',
-    text: 'Descending'
+    text: 'Sort descending'
   }
 ]
 

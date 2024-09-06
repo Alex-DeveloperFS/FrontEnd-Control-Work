@@ -1,5 +1,6 @@
 import {ChangeEvent} from "react"
 import {ProductCategoriesInterface} from "../../data/mockData.ts"
+import styles from "../../pages/Products.module.scss"
 
 interface SelectFieldPropsInterface {
   id: string,
@@ -11,13 +12,7 @@ interface SelectFieldPropsInterface {
 
 const SelectField = ({id, value, onChange, options, required = true}: SelectFieldPropsInterface) => {
   return (
-    <div className="form-group">
-      <label
-        className="form-label"
-        htmlFor={id}>
-        {id.charAt(0).toUpperCase() + id.slice(1)}:
-      </label>
-
+    <div className={styles.form__group}>
       <select
         className="form-control"
         id={id}
@@ -25,7 +20,7 @@ const SelectField = ({id, value, onChange, options, required = true}: SelectFiel
         onChange={onChange}
         required={required}
       >
-        <option value="">Please select a {id} ...</option>
+
         {options.map((option: ProductCategoriesInterface) => (
           <option key={option.value} value={option.value}>
             {option.text}

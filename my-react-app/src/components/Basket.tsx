@@ -7,6 +7,7 @@ import Modal from "../modals/Modal.tsx"
 import BuyForm from "./form/BuyForm.tsx"
 import {toast} from "react-toastify";
 import styles from "./Navbar.module.scss";
+import {FaShoppingCart} from "react-icons/fa";
 
 const Basket = () => {
   const [showModal, setShowModal] = useState(false)
@@ -60,7 +61,7 @@ const Basket = () => {
   return (
     <>
       <button className={styles.navbar__link} onClick={handleOpen}>
-        Basket <FaBasketShopping />
+        <FaShoppingCart />
       </button>
 
       {totalQuantity > 0 && <span className="basket-icon__count">{totalQuantity}</span>}

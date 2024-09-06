@@ -1,128 +1,96 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import { LinkInterface } from '../types/Link.interface.ts';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../redux/store.ts';
-import { login, logout } from '../redux/authSlice.ts';
-import Basket from './Basket.tsx';
-import styles from './Navbar.module.scss';
-import InputField from './form/InputField.tsx';
-import SelectField from './form/SelectField.tsx';
-import { ORDER_BY_LIST, SORT_BY_LIST } from '../data/mockData.ts';
-import { MdRefresh } from 'react-icons/md';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { fetchAllProducts } from '../redux/productsSlice.ts';
-import { createUrl } from '../utils/mockApi.ts';
-
-const links: LinkInterface[] = [
-  { path: '/', name: 'Products' },
-  { path: '/posts', name: 'Posts' },
-  { path: '/register', name: 'Register' },
-];
+import {NavLink, useNavigate} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {RootState} from '../redux/store.ts'
+import {login, logout} from '../redux/authSlice.ts'
+import Basket from "./Basket.tsx"
+import styles from './Navbar.module.scss'
+import {RiAdminFill} from "react-icons/ri";
+import {FaRegUser} from "react-icons/fa";
+import {MdAppRegistration} from "react-icons/md";
 
 const Navbar = () => {
-  const [name, setName] = useState('');
-  const [sort, setSort] = useState('');
-  const [order, setOrder] = useState('');
-  const [category, setCategory] = useState('');
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
-  const [page, setPage] = useState(1); // Assuming you have pagination
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-  const { isLogged } = useSelector((state: RootState) => state.auth);
-
-  useEffect(() => {
-    dispatch(fetchAllProducts(createUrl(page, name, sort, order, category, selectedBrand ? [selectedBrand] : [])));
-  }, [name, sort, order, category, selectedBrand, page, dispatch]);
-
-  const resetFilters = useCallback(() => {
-    setName('');
-    setSort('');
-    setOrder('');
-    setCategory('');
-    setSelectedBrand(null);
-    if (inputRef.current) {
-      inputRef.current.value = '';
-    }
-  }, []);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const {isLogged} = useSelector((state: RootState) => state.auth)
 
   const handleLogin = () => {
-    dispatch(login());
-  };
+    dispatch(login())
+  }
 
   const handleLogout = () => {
-    dispatch(logout());
-    navigate('/');
-  };
+    dispatch(logout())
+    navigate('/')
+  }
 
   return (
     <nav className={styles.navbar}>
       <p className={styles.navbar__header}>Choose with comfort</p>
       <div className={styles.navbar__container}>
-        <ul className={styles.navbar__list}>
-          {links.map((link: LinkInterface, index: number) => (
-            <li key={index} className={styles.navbar__item}>
-              <NavLink to={link.path} className={styles.navbar__link}>
-                {link.name}
-              </NavLink>
-            </li>
-          ))}
 
-          {!isLogged && (
+        <div className={styles.navbar__logo}>
+          <p>LOGO</p>
+
+        </div>
+
+        <ul className={styles.navbar__list}>
+
+          <NavLink to="/" className={styles.navbar__link}>
+            Products
+          </NavLink>
+
+          <NavLink to="/posts" className={styles.navbar__link}>
+            Posts
+          </NavLink>
+
+
+          {isLogged ? null : (
             <li className="navbar__item basket">
-              <Basket product={{ id: '', name: '', description: '', category: '', price: '', image: '' }} />
+              <Basket product={{id: '', name: '', description: '', category: '', price: '', image: ''}}/>
             </li>
           )}
 
-          {isLogged && (
+          {isLogged ? (
             <>
-              <li className={styles.navbar__item}>
+              <li>
                 <NavLink to="/orders" className={styles.navbar__link}>
                   Orders
                 </NavLink>
               </li>
-              <li className={styles.navbar__item}>
+              <li>
                 <NavLink to="/users" className={styles.navbar__link}>
                   Users
                 </NavLink>
               </li>
-              <li className={styles.navbar__item}>
-                <button onClick={handleLogout} className={styles.navbar__link}>
-                  Admin
-                </button>
-              </li>
             </>
-          )}
+          ) : null}
 
-          {!isLogged && (
-            <li className={styles.navbar__item}>
+          {isLogged ? (
+            <li>
+              <button onClick={handleLogout} className={styles.navbar__link}>
+                <RiAdminFill/>
+              </button>
+            </li>
+          ) : (
+            <li>
               <button onClick={handleLogin} className={styles.navbar__link}>
-                User
+                <FaRegUser/>
               </button>
             </li>
           )}
+
+          <NavLink to="/posts" className={styles.navbar__link}>
+            <MdAppRegistration/>
+          </NavLink>
         </ul>
       </div>
+      <div className={styles.navbar__photos}>
 
-      <div className="products-filter">
-        <InputField
-          ref={inputRef}
-          id="filter"
-          type="text"
-          placeholder="Filter products by name..."
-          onChange={(e) => setName(e.target.value)} // Removed debouncedSetName for simplicity
-        />
 
-        <SelectField id="sort" value={sort} onChange={(e) => setSort(e.target.value)} options={SORT_BY_LIST} />
-        <SelectField id="order" value={order} onChange={(e) => setOrder(e.target.value)} options={ORDER_BY_LIST} />
-
-        <button onClick={resetFilters}>
-          <MdRefresh />
-        </button>
       </div>
-    </nav>
-  );
-};
 
-export default Navbar;
+
+    </nav>
+  )
+}
+
+export default Navbar

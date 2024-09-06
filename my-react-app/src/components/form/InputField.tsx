@@ -14,9 +14,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldPropsInterface>(
   ({ id, value, type, onChange, placeholder, required = true, textarea = false }, ref) => {
     return (
       <div className="form-group">
-        <label className="form-label" htmlFor={id}>
-          {id.charAt(0).toUpperCase() + id.slice(1)}:
-        </label>
+
 
         {textarea ? (
           <textarea
