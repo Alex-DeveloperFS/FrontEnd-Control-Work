@@ -10,6 +10,7 @@ import AddToBasket from "./AddToBasket.tsx"
 import { RootState } from "../redux/store.ts"
 import { useSelector } from "react-redux"
 import { toast } from "react-toastify"
+import styles from '../pages/Products.module.scss'
 
 interface ProductPropsInterface {
   product: ProductInterface
@@ -31,17 +32,17 @@ const Product = ({ product: { id, brand, name, description, category, price, ima
   }
 
   return (
-    <li className="product-item">
-      <h2 className="product-item__title">{name}</h2>
-      <p className="product-item__brand">{brand}</p>
-      <p className="product-item__description">{description}</p>
-      <p className="product-item__category">{category}</p>
-      <p className="product-item__price">{price}</p>
-      <img className="product-item__image" src={image} alt={name} />
+    <li className={styles.product__items}>
+      <h2 className={styles.product_item__title}>{name}</h2>
+      <p className={styles.product_item__brand}>{brand}</p>
+      <p className={styles.product_item__description}>{description}</p>
+      <p className={styles.product_item__category}>{category}</p>
+      <p className={styles.product_item__price}>{price}</p>
+      <img className={styles.product_item__image} src={image} alt={name} />
 
       {isLogged ? (
-        <div className="product-item__actions">
-          <button className="product-item__delete" onClick={handleDeleteProduct}>
+        <div className={styles.product_item__actions}>
+          <button className={styles.btn__delete} onClick={handleDeleteProduct}>
             <FaTrash />
           </button>
           <EditProduct product={{ id, brand, name, description, category, price, image }} reload={reloadProduct}>

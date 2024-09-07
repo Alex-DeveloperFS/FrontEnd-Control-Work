@@ -78,7 +78,7 @@ const Navbar = () => {
             </li>
           )}
 
-          <NavLink to="/posts" className={styles.navbar__link}>
+          <NavLink to="/register" className={styles.navbar__link}>
             <MdAppRegistration/>
           </NavLink>
         </ul>

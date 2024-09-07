@@ -305,34 +305,7 @@ h1 {
     transform: translateY(-2px);
 }
 
-/* pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
 
-.pagination__btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #3498db;
-    color: #ffffff;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.pagination__btn:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
-}
-
-.pagination__btn:disabled {
-    background-color: #bdc3c7;
-    cursor: not-allowed;
-}
 
 /* modal */
 .modal-overlay {
@@ -439,41 +412,6 @@ form {
     transform: translateY(-2px);
 }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    gap: 10px;
-}
-
-.pagination__btn {
-    padding: 8px 16px;
-    margin: 0 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f0f0f0;
-    color: #333;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.pagination__btn:hover {
-    background-color: #ddd;
-}
-
-.pagination__btn.active {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-}
-
-.pagination__btn:disabled {
-    background-color: #e0e0e0;
-    color: #999;
-    border-color: #ccc;
-    cursor: not-allowed;
-}
 
 .buy-form-container {
     position: relative;
@@ -718,29 +656,4 @@ form {
 .brand-btn.active {
     background-color: #007bff;
     color: #fff;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.pagination__btn {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 10px 15px;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.pagination__btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.pagination__btn.active {
-    background-color: #0056b3;
 }

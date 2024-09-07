@@ -1,6 +1,7 @@
 import {addToBasket} from "../redux/basketSlice.ts"
 import {useDispatch} from "react-redux"
-import {toast, ToastContainer} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify"
+import styles from '../pages/Products.module.scss'
 
 const AddToBasket = ({children, product}) => {
 
@@ -15,9 +16,9 @@ const AddToBasket = ({children, product}) => {
   return (
     <>
       <button
-        className="product-item__add-to-cart"
+        className={styles.btn__add_cart}
         onClick={handleAddToBasket}>
-        Добавить в корзину
+        Add to cart
         {children}
       </button>
       <ToastContainer />

@@ -2,7 +2,8 @@ import { useState } from 'react'
 import BuyForm from "./form/BuyForm.tsx"
 import {ProductInterface} from "../types/Product.Interface.ts"
 import Modal from "../modals/Modal.tsx"
-import {toast} from "react-toastify";
+import {toast} from "react-toastify"
+import styles from '../pages/Products.module.scss'
 
 interface BuyProductProps {
   product: ProductInterface
@@ -26,7 +27,7 @@ const BuyProduct = ({children, product}: BuyProductProps) => {
 
   return (
     <>
-      <button className="add-product-btn" onClick={handleOpen} >
+      <button className={styles.btn__buy} onClick={handleOpen} >
         Buy product
         {children}
       </button>

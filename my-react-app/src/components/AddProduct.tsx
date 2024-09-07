@@ -6,6 +6,7 @@ import { useAdd } from '../hooks/useAdd.ts'
 import { API_URL } from '../utils/mockApi.ts'
 import { INITIAL_PRODUCT } from '../data/mockData.ts'
 import { toast } from "react-toastify"
+import styles from '../pages/Products.module.scss'
 
 interface AddProductProps {
   reloadProduct: () => void
@@ -31,7 +32,7 @@ const AddProduct = ({ reloadProduct }: AddProductProps) => {
 
   return (
     <>
-      <button className="add-product-btn" onClick={handleOpen}>
+      <button className={styles.add__product__btn} onClick={handleOpen}>
         Add product
       </button>
 

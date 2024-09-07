@@ -107,7 +107,7 @@ const Products = () => {
         </div>
       </div>
 
-      <div>
+      <div className={styles.products__box}>
 
         <div className={styles.products__filters}>
 
@@ -144,13 +144,11 @@ const Products = () => {
 
         {!isLoading && !error && (
           <div className="content">
-            <div className="buttons-group">
 
+            <div className="buttons-group">
               {isLogged && (
                 <AddProduct reloadProduct={reloadProducts}/>
               )}
-
-
             </div>
 
             <ul className="products-list">
@@ -159,9 +157,9 @@ const Products = () => {
                   <Product key={product.id} product={product} reloadProduct={reloadProducts}/>
                 ))}
             </ul>
-            <div className="pagination">
+            <div className={styles.pagination}>
               <button
-                className="pagination__btn"
+                className={styles.pagination__btn}
                 disabled={page === 1}
                 onClick={() => setPage((prevState) => prevState - 1)}
               >
@@ -171,7 +169,8 @@ const Products = () => {
               {[...Array(pageCount)].map((_, i) => (
                 <button
                   key={i + 1}
-                  className={`pagination__btn ${page === i + 1 ? 'active' : ''}`}
+
+                  className={`${styles.pagination__btn} ${page === i + 1 ? styles.active : ''}`}
                   onClick={() => setPage(i + 1)}
                 >
                   {i + 1}
@@ -179,7 +178,7 @@ const Products = () => {
               ))}
 
               <button
-                className="pagination__btn"
+                className={styles.pagination__btn}
                 disabled={products.length < API_ITEMS_PER_PAGE_LIMIT}
                 onClick={() => setPage((prevState) => prevState + 1)}
               >

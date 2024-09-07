@@ -5,6 +5,7 @@ import Modal from '../modals/Modal.tsx'
 import ProductForm from './form/ProductForm.tsx'
 import { useUpdate } from '../hooks/useUpdate.ts'
 import {toast} from "react-toastify";
+import styles from '../pages/Products.module.scss'
 
 interface EditProductButtonPropsInterface {
   children: ReactNode
@@ -34,7 +35,7 @@ const EditProduct = ({ children, product, reload }: EditProductButtonPropsInterf
 
   return (
     <>
-      <button className="product-item__edit" onClick={handleOpen}>
+      <button className={styles.btn__edit} onClick={handleOpen}>
         {children}
       </button>
 
