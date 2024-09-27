@@ -10,6 +10,7 @@ import {
   clearOrders
 } from '../redux/orderSlice'
 import {OrderInterface} from '../types/Order.interface'
+import styles from "../components/Navbar/Navbar.module.scss";
 
 const Orders = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -50,7 +51,7 @@ const Orders = () => {
   }
 
   return (
-    <div>
+    <div className={styles.navbar__link}>
       <h1>Orders page</h1>
       {isLoading && <h2>Loading...</h2>}
       {error && <h2 className="error">{error}</h2>}

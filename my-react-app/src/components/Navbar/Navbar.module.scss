@@ -1,7 +1,7 @@
 .navbar {
-  background-color: #3498db;
+
   margin-bottom: 40px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
 
 
   &__header {
@@ -14,8 +14,6 @@
 
   &__photos {
 
-    padding: 70px 0;
-    background-color: #262626;
   }
 
 
@@ -29,6 +27,12 @@
   &__logo {
     font-size: 30px;
     margin-left: 50px;
+
+  &_span {
+    color: #818181;
+    font-size: 20px;
+    margin-left: 5px;
+  }
   }
 
   &__list {
@@ -62,4 +66,8 @@
 .navbar__link.active {
   background: linear-gradient(45deg, #9b59b6, #3498db);
   color: white;
+}
+
+.navbar__img {
+width: calc(100% / 7);
 }

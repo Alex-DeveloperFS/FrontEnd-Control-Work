@@ -28,8 +28,7 @@ const Navbar = () => {
       <div className={styles.navbar__container}>
 
         <div className={styles.navbar__logo}>
-          <p>LOGO</p>
-
+          <p>SMARTSHOP<span className={styles.navbar__logo_span}>.COM</span></p>
         </div>
 
         <ul className={styles.navbar__list}>
@@ -84,6 +83,13 @@ const Navbar = () => {
         </ul>
       </div>
       <div className={styles.navbar__photos}>
+        <img src="../../public/img/Smartphones.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../public/img/qq20220704170026-1.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../public/img/Headphones.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../public/img/Accessories.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../public/img/Cameras.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../public/img/Best-Graphics-Cards-For-Gaming.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../public/img/qq20220704170026-1.jpg" alt="image" className={styles.navbar__img}/>
 
 
       </div>
