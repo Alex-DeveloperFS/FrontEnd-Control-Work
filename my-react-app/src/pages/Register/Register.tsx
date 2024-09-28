@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import {toast, ToastContainer} from "react-toastify";
+import styles from '../components/form/Form.module.scss'
 
 const registerSchema = yup.object({
   username: yup.string().required('Username is required').min(3, 'Username must be at least 3 characters'),

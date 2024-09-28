@@ -6,10 +6,10 @@ import { RootState } from '../redux/store.ts'
 import Modal from "../modals/Modal.tsx"
 import BuyForm from "./form/BuyForm.tsx"
 import {toast} from "react-toastify";
-import styles from "./Navbar.module.scss";
+import styles from "./Navbar/Navbar.module.scss";
 import {FaShoppingCart} from "react-icons/fa";
 
-const Basket = () => {
+const Card = () => {
   const [showModal, setShowModal] = useState(false)
   const [showBuyForm, setShowBuyForm] = useState(false)
 
@@ -113,4 +113,4 @@ const Basket = () => {
   )
 }
 
-export default Basket
+export default Card
