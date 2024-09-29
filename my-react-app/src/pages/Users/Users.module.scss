@@ -1,0 +1,152 @@
+.users {
+
+  &__container {
+    width: min(100% - 40px, 1340px);
+    margin-inline: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 50px;
+    min-height: calc(100vh - 651px);
+  }
+
+  &__title {
+    text-align: center;
+    background-color: #000000;
+    color: white;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    letter-spacing: 5px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 50px;
+
+  }
+}
+
+.user__list {
+  display: flex;
+}
+
+.user__items {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px 10px;
+  grid-template-areas:
+        "id name email password date"
+        "id-map name-map email-map password-map date-map";
+  align-items: center;
+  width: 100%;
+  border-bottom: 3px solid #b7b7b7;
+  padding-bottom: 10px;
+
+}
+
+.user {
+
+  &__id {
+    grid-area: id;
+    font-weight: 900;
+    font-size: 18px;
+
+    &_map {
+      grid-area: id-map;
+      font-size: 18px;
+    }
+  }
+
+  &__name {
+    grid-area: name;
+    font-weight: 900;
+    font-size: 18px;
+
+    &_map {
+      grid-area: name-map;
+      font-size: 18px;
+    }
+  }
+
+  &__email {
+    grid-area: email;
+    font-weight: 900;
+    font-size: 18px;
+
+    &_map {
+      grid-area: email-map;
+      font-size: 18px;
+    }
+  }
+
+  &__password {
+    grid-area: password;
+    font-weight: 900;
+    font-size: 18px;
+
+    &_map {
+      grid-area: password-map;
+      font-size: 18px;
+    }
+  }
+
+  &__date {
+    grid-area: date;
+    font-weight: 900;
+    font-size: 18px;
+
+    &_map {
+      grid-area: date-map;
+      font-size: 18px;
+    }
+  }
+}
+
+.btn__group {
+  margin-left: 20px;
+
+
+  &_item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px 10px;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #000000;
+
+
+    &:hover {
+      background-color: #646464;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.btn__clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 10px;
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+
+  &:hover {
+    background-color: #646464;
+    transform: translateY(-2px);
+  }
+}
+

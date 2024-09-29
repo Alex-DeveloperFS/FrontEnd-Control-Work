@@ -1,0 +1,51 @@
+.buttons__group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.btn__add_product {
+  padding: 10px 20px;
+  border: none;
+  background-color: #000000;
+  font-family: "Roboto Slab", serif;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #4b4b4b;
+    transform: translateY(-2px);
+  }
+}
+
+.product__actions {
+  display: flex;
+  padding-bottom: 20px;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.btn__delete,
+.btn__edit, .btn__buy, .btn__add_cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 10px;
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+}
+
+.btn__delete:hover, .btn__edit:hover, .btn__add_cart:hover, .btn__buy:hover {
+  background-color: #646464;
+  transform: translateY(-2px);
+}

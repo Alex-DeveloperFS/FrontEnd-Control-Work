@@ -1,0 +1,247 @@
+.orders {
+
+    &__container {
+      width: min(100% - 40px, 1340px);
+      margin-inline: auto;
+      margin-top: 50px;
+      min-height: calc(100vh - 651px);
+
+    }
+
+  &__title {
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    letter-spacing: 5px;
+  }
+}
+
+.order {
+
+  &__list {
+    display: flex;
+    gap: 10px;
+    margin-top: 40px;
+    flex-direction: column;
+    border-bottom: 3px solid #a4a4a4;
+    padding-bottom: 10px;
+  }
+
+  &__number {
+    text-align: center;
+    font-size: 26px;
+  }
+
+  &__content {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__product {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 70%;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: 15% 69% 8% 8%;
+    grid-template-rows: 30% 70%;
+    gap: 0 0;
+    grid-template-areas:
+    "image name price quantity"
+    "image name_product price_product quantity_product";
+    align-items: center;
+  }
+
+  &__image {
+    grid-area: image;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__name {
+    grid-area: name;
+    margin-left: 10px;
+    padding-right: 10px;
+    border-bottom: 1px solid rgba(173, 173, 173, 0.78);
+
+    &_product {
+      grid-area: name_product;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 20px;
+    }
+  }
+
+  &__price {
+    grid-area: price;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-bottom: 1px solid rgba(173, 173, 173, 0.78);
+
+
+    &_product {
+      grid-area: price_product;
+      padding-left: 10px;
+      font-size: 20px;
+    }
+  }
+
+  &__quantity {
+    grid-area: quantity;
+    padding-left: 10px;
+    margin-right: 10px;
+    border-bottom: 1px solid rgba(173, 173, 173, 0.78);
+
+    &_product {
+      grid-area: quantity_product;
+
+      padding-left: 20px;
+      font-size: 20px;
+    }
+  }
+}
+
+.order__user {
+  width: 30%;
+  flex-direction: column;
+  display: flex;
+  background-color: rgb(241 241 241 / 79%);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.users__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.users__list {
+  display: grid;
+  grid-template-columns:  45% 51%;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 15px 15px;
+  grid-template-areas:
+        "name name-bayer"
+        "phone phone-bayer"
+        "email email-bayer"
+        "quantity quantity-bayer"
+        "total-price total-price-bayer";
+  align-items: center;
+  width: 100%;
+}
+
+.user {
+
+  &__name {
+    grid-area: name;
+    font-weight: 900;
+    font-size: 18px;
+
+    &_bayer {
+      grid-area: name-bayer;
+      font-size: 18px;
+    }
+  }
+
+  &__phone {
+    grid-area: phone;
+    font-weight: 900;
+    font-size: 18px;
+
+    &_bayer {
+      grid-area: phone-bayer;
+      font-size: 18px;
+    }
+  }
+
+  &__email {
+    grid-area: email;
+    font-weight: 900;
+    font-size: 18px;
+
+    &_bayer {
+      grid-area: email-bayer;
+      font-size: 18px;
+    }
+  }
+
+  &__quantity {
+    grid-area: quantity;
+    font-weight: 900;
+    font-size: 18px;
+
+    &_bayer {
+      grid-area: quantity-bayer;
+      font-size: 18px;
+    }
+  }
+
+  &__price {
+    grid-area: total-price;
+    font-weight: 900;
+    font-size: 18px;
+
+    &_bayer {
+      grid-area: total-price-bayer;
+      font-size: 18px;
+    }
+  }
+}
+
+.btn__group {
+  display: flex;
+  gap: 20px;
+
+
+  &_item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px 10px;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #000000;
+
+
+    &:hover {
+      background-color: #646464;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.btn__clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 10px;
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+
+
+
+  &:hover {
+    background-color: #646464;
+    transform: translateY(-2px);
+  }
+}

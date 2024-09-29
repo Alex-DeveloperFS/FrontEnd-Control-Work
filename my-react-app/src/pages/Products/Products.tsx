@@ -1,18 +1,23 @@
-import {useState, useEffect, useCallback, useRef} from 'react';
-import Product from '../components/Product.tsx';
-import AddProduct from '../components/AddProduct.tsx';
-import {debounce} from '../utils/debounce.ts';
-import {ORDER_BY_LIST, SORT_BY_LIST, PRODUCT_CATEGORIES} from '../data/mockData.ts';
-import InputField from '../components/form/InputField.tsx';
-import SelectField from '../components/form/SelectField.tsx';
+import {useState, useEffect, useCallback, useRef} from 'react'
+import Product from '../../components/Product.tsx'
+import AddProduct from '../../components/AddProduct.tsx'
+import {debounce} from '../../utils/debounce.ts'
+import {ORDER_BY_LIST, SORT_BY_LIST, PRODUCT_CATEGORIES} from '../../data/mockData.ts';
+import InputField from '../../components/form/InputField.tsx';
+import SelectField from '../../components/form/SelectField.tsx';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '../redux/store.ts';
-import {fetchAllProducts, selectProducts, selectProductsError, selectProductsLoading} from '../redux/productsSlice.ts';
-import {createUrl, createUrlCount, API_ITEMS_PER_PAGE_LIMIT} from '../utils/mockApi.ts';
-import {useFetch} from "../hooks/useFetch.ts";
+import {AppDispatch, RootState} from '../../redux/store.ts';
+import {
+  fetchAllProducts,
+  selectProducts,
+  selectProductsError,
+  selectProductsLoading
+} from '../../redux/productsSlice.ts';
+import {createUrl, createUrlCount, API_ITEMS_PER_PAGE_LIMIT} from '../../utils/mockApi.ts';
+import {useFetch} from "../../hooks/useFetch.ts";
 import {ToastContainer} from "react-toastify";
-import {fetchBrands} from '../redux/brandsSlice.ts';
-import styles from "./Products.module.scss";
+import {fetchBrands} from '../../redux/brandsSlice.ts';
+import styles from "./styles/Products.module.scss";
 
 const Products = () => {
   const [page, setPage] = useState(1);
@@ -76,135 +81,141 @@ const Products = () => {
   };
 
   return (
-    <div className="box">
-      <div className={styles.filters__menu}>
-        <h2 className={styles.filters__title}>Categories:</h2>
-        <div className={styles.category__buttons}>
-          {PRODUCT_CATEGORIES.map((cat) => (
-            <button
-              key={cat.value}
-              className={`${styles.category__btn} ${category === cat.value ? styles.active : ''}`}
-              onClick={() => setCategory(cat.value)}
-            >
-              {cat.text}
-            </button>
-          ))}
-        </div>
+    <>
 
-        <h2 className={styles.filters__title}>Brands:</h2>
+      <h1 className={styles.products__title}>PRODUCTS</h1>
+      <div className={styles.container__products}>
 
-        <div className={styles.brand__buttons}>
-          {brandsLoading && <p>Загрузка брендов...</p>}
-          {brandsError && <p>{brandsError}</p>}
-          {!brandsLoading && !brandsError && brands.map((brand) => (
-            <button
-              key={brand}
-              className={`${styles.brand__btn} ${selectedBrand === brand ? styles.active : ''}`}
-              onClick={() => handleBrandChange(brand)}
-            >
-              {brand}
-            </button>
-          ))}
-        </div>
+        <div className={styles.filters}>
+          <div className={styles.categories}>
+            <h2 className={styles.filters__title}>Categories:</h2>
 
-        <div className={styles.btn__filter}>
-          <button onClick={resetFilters} className={styles.btn__reset}>Reset filters</button>
-        </div>
-      </div>
-
-      <div className={styles.products__box}>
-
-        <div className={styles.products__filters}>
-
-          <div className={styles.search__box}>
-
-            <InputField
-              ref={inputRef}
-              id="filter"
-              type="text"
-              placeholder="Search by name..."
-              onChange={(e) => debouncedSetName(e.target.value)}
-              className={styles.products__input}
-            />
-
-            <button onClick={handleSearch} className={styles.btn__search}>Search</button>
-
-          </div>
-
-          <div className={styles.products__selects}>
-            <SelectField
-              id="sort"
-              value={sort}
-              onChange={(e) => setSort(e.target.value)}
-              options={SORT_BY_LIST}
-              className={styles.products__select}
-            />
-            <SelectField
-              id="order"
-              value={order}
-              onChange={(e) => setOrder(e.target.value)}
-              options={ORDER_BY_LIST}
-              className={styles.products__select}
-            />
-          </div>
-        </div>
-
-        {isLoading && <p className="loading">Загрузка...</p>}
-        {error && <p className="error">Продукты не найдены</p>}
-
-        {!isLoading && !error && (
-          <div className="content">
-            <div className="buttons-group">
-              {isLogged && (
-                <AddProduct reloadProduct={reloadProducts} resetFilters={resetFilters}/>
-              )}
-            </div>
-
-            <ul className="products-list">
-              {products.length > 0 ? products.map((product: ProductInterface) => (
-                <Product
-                  key={product.id}
-                  product={product}
-                  reloadProduct={reloadProducts}
-                  resetFilters={resetFilters}
-                  setPage={setPage}
-                  selectedBrand={selectedBrand}
-                />
-              )) : <p>Нет доступных продуктов</p>}
-            </ul>
-
-            <div className={styles.pagination}>
-              <button
-                className={styles.pagination__btn}
-                disabled={page === 1}
-                onClick={() => setPage((prevState) => prevState - 1)}
-              >
-                Prev
-              </button>
-
-              {[...Array(pageCount)].map((_, i) => (
+            <div className={styles.categories__buttons}>
+              {PRODUCT_CATEGORIES.map((cat) => (
                 <button
-                  key={i + 1}
-                  className={`${styles.pagination__btn} ${page === i + 1 ? styles.active : ''}`}
-                  onClick={() => setPage(i + 1)}
+                  key={cat.value}
+                  className={`${styles.categories__btn} ${category === cat.value ? styles.active : ''}`}
+                  onClick={() => setCategory(cat.value)}
                 >
-                  {i + 1}
+                  {cat.text}
                 </button>
               ))}
-
-              <button
-                className={styles.pagination__btn}
-                disabled={products.length < API_ITEMS_PER_PAGE_LIMIT}
-                onClick={() => setPage((prevState) => prevState + 1)}
-              >
-                Next
-              </button>
             </div>
           </div>
-        )}
-        <ToastContainer/>
+          <div className={styles.brands}>
+
+            <h2 className={styles.filters__title}>Brands:</h2>
+            <div className={styles.brands__buttons}>
+              {brandsLoading && <p>Loading brands...</p>}
+              {brandsError && <p>{brandsError}</p>}
+              {!brandsLoading && !brandsError && brands.map((brand) => (
+                <button
+                  key={brand}
+                  className={`${styles.brands__btn} ${selectedBrand === brand ? styles.active : ''}`}
+                  onClick={() => handleBrandChange(brand)}
+                >
+                  {brand}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className={styles.btn__filter}>
+            <button onClick={resetFilters} className={styles.btn__reset}>Reset filters</button>
+          </div>
+        </div>
+
+        <div className={styles.products}>
+
+          <div className={styles.products__filters}>
+            <div className={styles.search__group}>
+              <InputField
+                ref={inputRef}
+                id="filter"
+                type="text"
+                placeholder="Search by name..."
+                onChange={(e) => debouncedSetName(e.target.value)}
+                className={styles.search__input}
+              />
+
+              <button onClick={handleSearch} className={styles.search__btn}>Search</button>
+            </div>
+
+            <div className={styles.selects__group}>
+              <SelectField
+                id="sort"
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+                options={SORT_BY_LIST}
+                className={styles.select__item}
+              />
+              <SelectField
+                id="order"
+                value={order}
+                onChange={(e) => setOrder(e.target.value)}
+                options={ORDER_BY_LIST}
+                className={styles.select__item}
+              />
+            </div>
+          </div>
+
+          {isLoading && <p className="loading">Loading...</p>}
+          {error && <p className="error">Products not found</p>}
+
+          {!isLoading && !error && (
+            <div className={styles.content}>
+
+              <div className={styles.buttons__group}>
+                {isLogged && (
+                  <AddProduct reloadProduct={reloadProducts} resetFilters={resetFilters}/>
+                )}
+              </div>
+
+              <ul className={styles.products__list}>
+                {products.length > 0 ? products.map((product: ProductInterface) => (
+                  <Product
+                    key={product.id}
+                    product={product}
+                    reloadProduct={reloadProducts}
+                    resetFilters={resetFilters}
+                    setPage={setPage}
+                    selectedBrand={selectedBrand}
+                  />
+                )) : <p>No products available</p>}
+              </ul>
+
+              <div className={styles.pagination}>
+                <button
+                  className={styles.pagination__btn}
+                  disabled={page === 1}
+                  onClick={() => setPage((prevState) => prevState - 1)}
+                >
+                  Prev
+                </button>
+
+                {[...Array(pageCount)].map((_, i) => (
+                  <button
+                    key={i + 1}
+                    className={`${styles.pagination__btn} ${page === i + 1 ? styles.active : ''}`}
+                    onClick={() => setPage(i + 1)}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+
+                <button
+                  className={styles.pagination__btn}
+                  disabled={products.length < API_ITEMS_PER_PAGE_LIMIT}
+                  onClick={() => setPage((prevState) => prevState + 1)}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
+          <ToastContainer/>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

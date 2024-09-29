@@ -1,8 +1,8 @@
 import {NavLink, useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {RootState} from '../redux/store.ts'
-import {login, logout} from '../redux/authSlice.ts'
-import Basket from "./Basket.tsx"
+import {RootState} from '../../redux/store.ts'
+import {login, logout} from '../../redux/authSlice.ts'
+import Card from "../Card/Card.tsx"
 import styles from './Navbar.module.scss'
 import {RiAdminFill} from "react-icons/ri";
 import {FaRegUser} from "react-icons/fa";
@@ -24,7 +24,9 @@ const Navbar = () => {
 
   return (
     <nav className={styles.navbar}>
-      <p className={styles.navbar__header}>Choose with comfort</p>
+
+      <p className={styles.navbar__title}>Choose with comfort</p>
+
       <div className={styles.navbar__container}>
 
         <div className={styles.navbar__logo}>
@@ -41,22 +43,21 @@ const Navbar = () => {
             Posts
           </NavLink>
 
-
           {isLogged ? null : (
             <li className="navbar__item basket">
-              <Basket product={{id: '', name: '', description: '', category: '', price: '', image: ''}}/>
+              <Card product={{id: '', name: '', description: '', category: '', price: '', image: ''}}/>
             </li>
           )}
 
           {isLogged ? (
             <>
-              <li>
-                <NavLink to="/orders" className={styles.navbar__link}>
+              <li className={styles.navbar__link}>
+                <NavLink to="/orders" className={styles.link}>
                   Orders
                 </NavLink>
               </li>
-              <li>
-                <NavLink to="/users" className={styles.navbar__link}>
+              <li className={styles.navbar__link}>
+                <NavLink to="/users" >
                   Users
                 </NavLink>
               </li>
@@ -82,19 +83,16 @@ const Navbar = () => {
           </NavLink>
         </ul>
       </div>
+
       <div className={styles.navbar__photos}>
-        <img src="../../public/img/Smartphones.jpg" alt="image" className={styles.navbar__img}/>
-        <img src="../../public/img/qq20220704170026-1.jpg" alt="image" className={styles.navbar__img}/>
-        <img src="../../public/img/Headphones.jpg" alt="image" className={styles.navbar__img}/>
-        <img src="../../public/img/Accessories.jpg" alt="image" className={styles.navbar__img}/>
-        <img src="../../public/img/Cameras.jpg" alt="image" className={styles.navbar__img}/>
-        <img src="../../public/img/Best-Graphics-Cards-For-Gaming.jpg" alt="image" className={styles.navbar__img}/>
-        <img src="../../public/img/qq20220704170026-1.jpg" alt="image" className={styles.navbar__img}/>
-
-
+        <img src="../../../public/img/Smartphones.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../../public/img/qq20220704170026-1.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../../public/img/Headphones.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../../public/img/Accessories.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../../public/img/Cameras.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../../public/img/Best-Graphics-Cards-For-Gaming.jpg" alt="image" className={styles.navbar__img}/>
+        <img src="../../../public/img/qq20220704170026-1.jpg" alt="image" className={styles.navbar__img}/>
       </div>
-
-
     </nav>
   )
 }

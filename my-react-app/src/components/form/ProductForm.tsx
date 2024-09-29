@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react'
 import { PRODUCT_CATEGORIES } from '../../data/mockData.ts'
 import InputField from './InputField.tsx'
 import SelectField from './SelectField.tsx'
-import {toast, ToastContainer} from "react-toastify";
+import styles from './Form.module.scss'
 
 interface ProductFormPropsInterface {
   onSubmit: (product: Partial<ProductInterface>) => void
@@ -30,23 +30,31 @@ const ProductForm = ({ onSubmit, product }: ProductFormPropsInterface) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form__container} >
       <InputField
         id="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Product name..." />
+        placeholder="Product name..."
+        className={`${styles.form__control} ${styles.white}`}
+      />
+
+
       <InputField
         id="brand"
         value={brand}
         onChange={(e) => setBrand(e.target.value)}
-        placeholder="Brand..." />
+        placeholder="Brand..."
+        className={`${styles.form__control} ${styles.white}`}
+
+      />
       <InputField
         id="description"
         textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Product description..."
+        className={`${styles.form__control} ${styles.white}`}
       />
       <InputField
         id="price"
@@ -54,6 +62,8 @@ const ProductForm = ({ onSubmit, product }: ProductFormPropsInterface) => {
         value={`${price}`}
         onChange={(e) => setPrice(+e.target.value)}
         placeholder="Price..."
+        className={`${styles.form__control} ${styles.white}`}
+
       />
       <InputField
         id="image"
@@ -61,15 +71,19 @@ const ProductForm = ({ onSubmit, product }: ProductFormPropsInterface) => {
         value={image}
         onChange={(e) => setImage(e.target.value)}
         placeholder="Image URL..."
+        className={`${styles.form__control} ${styles.white}`}
+
       />
       <SelectField
         id="category"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
         options={PRODUCT_CATEGORIES}
+        className={`${styles.form__control} ${styles.white}`}
       />
-      <div className="form-group">
-        <button className="form-button" type="submit">
+
+      <div className={styles.btn__submit}>
+        <button className={styles.form_button} type="submit">
           Submit
         </button>
       </div>

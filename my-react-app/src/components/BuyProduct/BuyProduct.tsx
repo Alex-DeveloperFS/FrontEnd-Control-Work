@@ -1,9 +1,12 @@
-import { useState } from 'react'
-import BuyForm from "./form/BuyForm.tsx"
-import {ProductInterface} from "../types/Product.Interface.ts"
-import Modal from "../modals/Modal.tsx"
+import {useState} from 'react'
+import BuyForm from "../form/BuyForm.tsx"
+import {ProductInterface} from "../../types/Product.Interface.ts"
+import Modal from "../../modals/Modal.tsx"
 import {toast} from "react-toastify"
-import styles from '../pages/Products/styles/Products.module.scss'
+import styles from '../../pages/Products/styles/Products.module.scss'
+import buyProductStyles from './BuyProduct.module.scss'
+import modalStyles from '../../modals/Modal.module.scss'
+
 
 interface BuyProductProps {
   product: ProductInterface
@@ -34,31 +37,37 @@ const BuyProduct = ({children, product}: BuyProductProps) => {
 
       {showModal && (
         <Modal onClose={handleClose}>
-          <h2 className="modal__title">Buy product</h2>
-          <h3>Купить Товар</h3>
-          <p>Название: {product.name}</p>
-          <p>Цена за единицу: {product.price}</p>
+          <h2 className={modalStyles.modal__title}>Buy product</h2>
 
-          <label htmlFor="quantity">Количество:</label>
-          <input
-            id="quantity"
-            type="number"
-            value={quantity}
-            min={1}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-          />
+          <div className={buyProductStyles.product__items}>
+            <img className={buyProductStyles.product__image} src={product.image} alt={product.name}></img>
 
-          <p>Общая стоимость: {totalPrice}</p>
+            <div className={buyProductStyles.product__list}>
+              <p className={buyProductStyles.product__name}>Name:</p>
+              <p className={buyProductStyles.product__price}>Price:</p>
+              <label className={buyProductStyles.product__quantity} htmlFor="quantity">Quantity:</label>
+              <p className={buyProductStyles.product__total_price}>Total price:</p>
 
-          <img className="product-item__image" src={product.image} alt={product.name}></img>
-
+              <p className={buyProductStyles.product__name_map}>{product.name}</p>
+              <p className={buyProductStyles.product__price_map}>{product.price} $</p>
+              <input
+                className={buyProductStyles.product__quantity_map}
+                id="quantity"
+                type="number"
+                value={quantity}
+                min={1}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+              />
+              <p className={buyProductStyles.product__total_price_map}>{totalPrice} $</p>
+            </div>
+          </div>
           <BuyForm
             onSubmit={handleSubmit}
             onClose={handleClose}
             products={[{...product, quantity}]}  // Передаем количество продукта
             totalQuantity={quantity}
             totalPrice={totalPrice}
-            usersBuyer={{ name: '', surname: '', phone: '', email: '' }}
+            usersBuyer={{name: '', surname: '', phone: '', email: ''}}
           />
         </Modal>
       )}

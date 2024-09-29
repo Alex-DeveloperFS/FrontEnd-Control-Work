@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {AppDispatch} from '../redux/store'
+import {AppDispatch} from '../../redux/store.ts'
 import {
   fetchAllOrders,
   selectOrders,
@@ -8,9 +8,9 @@ import {
   selectOrdersLoading,
   removeOrder,
   clearOrders
-} from '../redux/orderSlice'
-import {OrderInterface} from '../types/Order.interface'
-import styles from "../components/Navbar/Navbar.module.scss";
+} from '../../redux/orderSlice.ts'
+import {OrderInterface} from '../../types/Order.Interface.ts'
+import styles from "./Orders.module.scss";
 
 const Orders = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -51,47 +51,85 @@ const Orders = () => {
   }
 
   return (
-    <div className={styles.navbar__link}>
-      <h1>Orders page</h1>
-      {isLoading && <h2>Loading...</h2>}
-      {error && <h2 className="error">{error}</h2>}
-      {!isLoading && !error && (
-        <>
-          <button onClick={handleClearOrders}>Clear All Orders</button>
-          <ul>
-            {orders && orders.length > 0 ? (
-              orders.map((order: OrderInterface) => (
-                <li key={order.id}>
-                  <h3>Order ID: {order.id}</h3>
-                  <p>User: {order.usersBuyer.name} {order.usersBuyer.surname}</p>
-                  <p>Phone: {order.usersBuyer.phone}</p>
-                  <p>Email: {order.usersBuyer.email}</p>
+    <>
+      <h1 className={styles.orders__title}>ORDERS</h1>
+      <div className={styles.orders__container}>
+        {isLoading && <h2 className="loading">Loading...</h2>}
+        {error && <h2 className="error">{error}</h2>}
+        {!isLoading && !error && (
+          <>
+            <button onClick={handleClearOrders} className={styles.btn__clear}>Clear All Orders</button>
 
-                  <div>
-                    {order.products && order.products.length > 0 ? (
-                      order.products.map((product) => (
-                        <div key={product.id}>
-                          <p>Product: {product.name}</p>
-                          <p>Quantity: {product.quantity}</p>
+            <ul>
+              {orders && orders.length > 0 ? (
+                orders.map((order: OrderInterface) => (
+
+                  <li key={order.id} className={styles.order__list}>
+
+                    <h3 className={styles.order__number}>Order: {order.id}</h3>
+
+                    <div className={styles.order__content}>
+                      <div className={styles.order__product}>
+                        {order.products && order.products.length > 0 ? (
+                          order.products.map((product) => (
+
+                            <div key={product.id} className={styles.order__items}>
+                              <img src={product.image} alt="image" className={styles.order__image}/>
+
+
+                              <p className={styles.order__name}>NAME:</p>
+                              <p className={styles.order__price}>PRICE:</p>
+                              <p className={styles.order__quantity}>PCS:</p>
+
+
+                              <p className={styles.order__name_product}>Product: {product.name}</p>
+                              <p className={styles.order__price_product}>{product.price}$</p>
+                              <p className={styles.order__quantity_product}>{product.quantity}</p>
+                            </div>
+                          ))
+                        ) : (
+                          <p>No products found.</p>
+                        )}
+                      </div>
+                      <div className={styles.order__user}>
+
+                        <div className={styles.users__list}>
+
+                          <p className={styles.user__name}>USER:</p>
+                          <p className={styles.user__phone}>PHONE:</p>
+                          <p className={styles.user__email}>EMAIL:</p>
+                          <p className={styles.user__quantity}>TOTAL QUANTITY:</p>
+                          <p className={styles.user__price}>TOTAL PRICE:</p>
+
+
+                          <p className={styles.user__name_bayer}>{order.usersBuyer.name} {order.usersBuyer.surname}</p>
+                          <p className={styles.user__phone_bayer}>{order.usersBuyer.phone}</p>
+                          <p className={styles.user__email_bayer}>{order.usersBuyer.email}</p>
+                          <p className={styles.user__quantity_bayer}>{order.totalQuantity}</p>
+                          <p className={styles.user__price_bayer}>{order.totalPrice}$</p>
                         </div>
-                      ))
-                    ) : (
-                      <p>No products found.</p>
-                    )}
-                  </div>
 
-                  <p>Total quantity: {order.totalQuantity}</p>
-                  <p>Total price: ${order.totalPrice}</p>
-                  <button onClick={() => handleRemoveOrder(order.id)}>Remove</button>
-                </li>
-              ))
-            ) : (
-              <p>ЗАКАЗЫ ОТСУТСВУЮТ</p>
-            )}
-          </ul>
-        </>
-      )}
-    </div>
+                        <div className={styles.btn__group}>
+                          <button className={styles.btn__group_item} onClick={() => handleRemoveOrder(order.id)}>Delete
+                          </button>
+                          <button className={styles.btn__group_item}>Confirm order</button>
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                  </li>
+                ))
+              ) : (
+                <h2 className="error">Orders not found</h2>
+              )}
+
+            </ul>
+          </>
+        )}
+      </div>
+    </>
   )
 }
 

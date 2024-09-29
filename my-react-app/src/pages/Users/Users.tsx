@@ -1,7 +1,8 @@
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch } from '../redux/store.ts'
-import {clearUsers, fetchAllUsers, removeUsers, selectUsers, selectUsersError, selectUsersLoading} from '../redux/userSlice.ts'
+import { AppDispatch } from '../../redux/store.ts'
+import {clearUsers, fetchAllUsers, removeUsers, selectUsers, selectUsersError, selectUsersLoading} from '../../redux/userSlice.ts'
+import styles from "./Users.module.scss"
 
 const Users: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -48,37 +49,47 @@ const Users: FC = () => {
   }
 
   return (
-    <div className="users-container">
+   <>
+      <h1 className={styles.users__title}>USERS</h1>
+    <div className={styles.users__container}>
 
-      <h1>Пользователи</h1>
-      {isLoading && <h2>Загрузка...</h2>}
+      {isLoading && <h2 className="loading">Loading...</h2>}
       {error && <h2 className="error">{error}</h2>}
       {!isLoading && !error && users.length > 0 && (
         <>
-          <button onClick={handleClearUsers}>Очистить всех пользователей</button>
+          <button className={styles.btn__clear} onClick={handleClearUsers}>Clear all users</button>
 
-          <ul className="users-list">
+          <ul className={styles.users__content}>
             {users.map((user) => (
-              <li key={user.id} className="user-item">
+              <li key={user.id} className={styles.user__list}>
 
-                <div className="user-details">
-                  <h2>ID пользователя: {user.id}</h2>
-                  <p><strong>Имя пользователя:</strong> {user.usersData.username}</p>
-                  <p><strong>Email:</strong> {user.usersData.email}</p>
-                  <p><strong>Пароль:</strong> {user.usersData.password}</p>
-                  <p><strong>Подтверждение пароля:</strong> {user.usersData.confirmPassword}</p>
-                  <p><strong>Дата регистрации:</strong> {(new Date(user.createdAt)).toLocaleString()}</p>
+                <div className={styles.user__items}>
+                  <p className={styles.user__id}>ID:</p>
+                  <p className={styles.user__name}>Name:</p>
+                  <p className={styles.user__email}>Email:</p>
+                  <p className={styles.user__password}>Password:</p>
+                  <p className={styles.user__date}>Date:</p>
+
+
+                  <p className={styles.user__id_map}>{user.id}</p>
+                  <p className={styles.user__name_map}>{user.usersData.username}</p>
+                  <p className={styles.user__email_map}>{user.usersData.email}</p>
+                  <p className={styles.user__password_map}>{user.usersData.password}</p>
+                  <p className={styles.user__date_map}>{(new Date(user.createdAt)).toLocaleString()}</p>
                 </div>
 
-                <button onClick={() => handleRemoveUsers(user.id)}>Удалить</button>
+                <div className={styles.btn__group}>
+                  <button className={styles.btn__group_item} onClick={() => handleRemoveUsers(user.id)}>Delete</button>
+                </div>
               </li>
             ))}
           </ul>
         </>
       )}
 
-      {!isLoading && !error && users.length === 0 && <h2>Пользователи не найдены</h2>}
+      {!isLoading && !error && users.length === 0 && <h2 className="error">Users not found</h2>}
     </div>
+   </>
   )
 }
 

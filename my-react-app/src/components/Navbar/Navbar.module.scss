@@ -1,21 +1,13 @@
 .navbar {
 
-  margin-bottom: 40px;
 
-
-
-  &__header {
+  &__title {
     text-align: center;
     font-size: 20px;
     color: white;
     background-color: #000000;
     padding: 10px 0;
   }
-
-  &__photos {
-
-  }
-
 
   &__container {
     display: flex;
@@ -28,11 +20,11 @@
     font-size: 30px;
     margin-left: 50px;
 
-  &_span {
-    color: #818181;
-    font-size: 20px;
-    margin-left: 5px;
-  }
+    &_span {
+      color: #818181;
+      font-size: 20px;
+      margin-left: 5px;
+    }
   }
 
   &__list {
@@ -43,9 +35,11 @@
     align-items: center;
   }
 
+  &__links {
+  display: flex;
+}
 
   &__link {
-
     padding: 5px 10px;
     color: #000000;
     transition: all 0.3s ease-in-out;
@@ -55,19 +49,14 @@
     font-family: "Roboto Slab", serif;
     font-weight: 600;
     background-color: #ffffff;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
 
-.navbar__link:hover {
-  transform: scale(1.1);
-  color: #000000;
-}
-
-.navbar__link.active {
-  background: linear-gradient(45deg, #9b59b6, #3498db);
-  color: white;
-}
 
 .navbar__img {
-width: calc(100% / 7);
+  width: calc(100% / 7);
 }

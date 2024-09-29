@@ -3,6 +3,7 @@ import InputField from './InputField.tsx'
 import {ProductInterface} from "../../types/Product.Interface.ts"
 import {clearBasket} from "../../redux/basketSlice.ts"
 import {useDispatch} from "react-redux"
+import styles from './Form.module.scss'
 
 interface UserInterface {
   name: string;
@@ -71,14 +72,15 @@ const BuyForm = ({onSubmit, products, totalQuantity, totalPrice, usersBuyer, onC
   }
 
   return (
-    <div className="buy-form-container">
-      <form className="buy-form" onSubmit={handleBuy}>
+    <div className={styles.buy_form_container}>
+      <form className={styles.form__container} onSubmit={handleBuy}>
         <InputField
           id="nameUser"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Enter your name..."
           required
+          className={`${styles.form__control} ${styles.white}`}
         />
         <InputField
           id="surname"
@@ -86,6 +88,7 @@ const BuyForm = ({onSubmit, products, totalQuantity, totalPrice, usersBuyer, onC
           onChange={(e) => setSurname(e.target.value)}
           placeholder="Enter your surname..."
           required
+          className={`${styles.form__control} ${styles.white}`}
         />
         <InputField
           id="phone"
@@ -94,6 +97,7 @@ const BuyForm = ({onSubmit, products, totalQuantity, totalPrice, usersBuyer, onC
           onChange={(e) => setPhone(e.target.value)}
           placeholder="Enter your phone..."
           required
+          className={`${styles.form__control} ${styles.white}`}
         />
         <InputField
           id="email"
@@ -102,22 +106,25 @@ const BuyForm = ({onSubmit, products, totalQuantity, totalPrice, usersBuyer, onC
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email..."
           required
+          className={`${styles.form__control} ${styles.white}`}
         />
 
-        <h2 className="product-item__title">Order Summary</h2>
+        <h2 className="product-item__title">Order summary:</h2>
         <p>Total Quantity: {totalQuantity}</p>
-        <p>Total Price: ${totalPrice.toFixed(2)}</p>
+        <p>Total Price: {totalPrice.toFixed(2)} $</p>
 
         {error && <p className="form-error">{error}</p>}
 
-        <div className="form-group">
-          <button className="form-button" type="submit" disabled={isSubmitting}>
+        <div className={styles.form__actions}>
+
+          <button className={styles.form__actions_btn} type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Submitting...' : 'Buy Now'}
           </button>
 
-          <button className="form-button" type="button" onClick={onClose}>
+          <button className={styles.form__actions_btn} type="button" onClick={onClose}>
             Close
           </button>
+
         </div>
       </form>
     </div>

@@ -1,0 +1,85 @@
+.register {
+
+
+  &__title {
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    letter-spacing: 5px;
+  }
+
+  &__form {
+    max-width: 25%;
+    margin: 50px auto auto;
+    padding: 20px;
+    background-color: rgba(225, 225, 225, 0.91);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+  }
+
+  &__items {
+    position: relative;
+  }
+
+  &__label {
+    font-weight: 800;
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #000000;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    margin-top: 10px;
+    outline: none;
+
+  }
+
+
+  &__error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    position: absolute;
+  }
+
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px 10px;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #000000;
+
+
+  &:hover {
+    background-color: #646464;
+    transform: translateY(-2px);
+  }
+}
+}
+
+

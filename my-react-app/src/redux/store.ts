@@ -5,6 +5,8 @@ import postsReducer from './postsSlice'
 import productsReducer from './productsSlice'
 import basketReducer from './basketSlice'
 import orderReducer from './orderSlice'
+import brandsReducer from './brandsSlice'
+import productsFiltersReducer from './productFiltersSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +16,9 @@ export const store = configureStore({
     products: productsReducer,
     basket: basketReducer,
     orders: orderReducer,
+    brands: brandsReducer,
+    productsFilters: productsFiltersReducer,
+
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

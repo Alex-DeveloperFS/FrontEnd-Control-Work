@@ -5,7 +5,10 @@ import Modal from '../modals/Modal.tsx'
 import ProductForm from './form/ProductForm.tsx'
 import { useUpdate } from '../hooks/useUpdate.ts'
 import {toast} from "react-toastify";
-import styles from '../pages/Products.module.scss'
+import { useDispatch } from 'react-redux'
+import { fetchBrands } from '../redux/brandsSlice.ts'
+import styles from '../pages/Products/styles/Products.module.scss'
+import modalStyles from '../modals/Modal.module.scss'
 
 interface EditProductButtonPropsInterface {
   children: ReactNode
@@ -20,13 +23,15 @@ const EditProduct = ({ children, product, reload }: EditProductButtonPropsInterf
   const handleOpen = () => setShowModal(true)
   const handleClose = () => setShowModal(false)
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (product: Partial<ProductInterface>) => {
 
     try {
       await update(product as ProductInterface)
       handleClose()
       toast.success('Товар успешно изменен!');
-      // reload()
+      dispatch(fetchBrands())
 
     } catch (error) {
       console.log(error)
@@ -42,9 +47,8 @@ const EditProduct = ({ children, product, reload }: EditProductButtonPropsInterf
       {showModal && (
         <Modal onClose={handleClose}>
 
-          <h2 className="modal__title">
-            Edit product №{product.id}, {product.name}
-          </h2>
+          <h2 className={modalStyles.modal__title}>Edit product №{product.id}</h2>
+          <h2 className={modalStyles.modal__title}>{product.name}</h2>
 
           {error && <p className="error">{error}</p>}
 

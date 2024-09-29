@@ -1,5 +1,6 @@
-import { FormEvent, useState } from 'react';
+import {FormEvent, useState} from 'react';
 import InputField from './InputField.tsx';
+import styles from "./Form.module.scss";
 
 
 interface PostFormPropsInterface {
@@ -7,7 +8,7 @@ interface PostFormPropsInterface {
   post: PostInterface;
 }
 
-const PostForm = ({ onSubmit, post }: PostFormPropsInterface) => {
+const PostForm = ({onSubmit, post}: PostFormPropsInterface) => {
   const [id, setId] = useState(post.id);
   const [description, setDescription] = useState(post.description);
   const [title, setTitle] = useState(post.title);
@@ -16,19 +17,20 @@ const PostForm = ({ onSubmit, post }: PostFormPropsInterface) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    const updatedPost: PostInterface = { id, title, description, image };
+    const updatedPost: PostInterface = {id, title, description, image};
 
     onSubmit(updatedPost);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form__container}>
 
       <InputField
         id="title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Post title..."
+        className={`${styles.form__control} ${styles.white}`}
       />
       <InputField
         id="description"
@@ -36,6 +38,7 @@ const PostForm = ({ onSubmit, post }: PostFormPropsInterface) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Post description..."
+        className={`${styles.form__control} ${styles.white} ${styles.textarea}`}
       />
       <InputField
         id="image"
@@ -43,9 +46,11 @@ const PostForm = ({ onSubmit, post }: PostFormPropsInterface) => {
         value={image}
         onChange={(e) => setImage(e.target.value)}
         placeholder="Image URL..."
+        className={`${styles.form__control} ${styles.white}`}
       />
-      <div className="form-group">
-        <button className="form-button" type="submit">
+
+      <div className={styles.form__items}>
+        <button className={styles.form_button} type="submit">
           Submit
         </button>
       </div>

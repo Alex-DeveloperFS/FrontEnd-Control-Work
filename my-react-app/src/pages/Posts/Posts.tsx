@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../redux/store.ts';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppDispatch, RootState} from '../../redux/store.ts';
 import {
   clearPosts,
   fetchAllPosts,
@@ -10,24 +10,26 @@ import {
   editPost,
   addPost,
   setPage,
-} from '../redux/postsSlice.ts';
-import { useEffect, useRef, useState } from 'react';
-import { PostInterface } from '../types/Post.interface.ts';
-import { FaTrash } from "react-icons/fa6";
-import { FaEdit } from "react-icons/fa";
-import Modal from "../modals/Modal.tsx";
-import PostForm from "../components/form/PostForm.tsx";
-import { INITIAL_POST } from "../data/mockData.ts";
-import { toast, ToastContainer } from 'react-toastify';
+} from '../../redux/postsSlice.ts';
+import {useEffect, useRef, useState} from 'react';
+import {PostInterface} from '../../types/Post.Interface.ts';
+import {FaTrash} from "react-icons/fa6";
+import {FaEdit} from "react-icons/fa";
+import Modal from "../../modals/Modal.tsx";
+import PostForm from "../../components/form/PostForm.tsx";
+import {INITIAL_POST} from "../../data/mockData.ts";
+import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import styles from "./Posts.module.scss";
+import modalStyles from "../../modals/Modal.module.scss";
 
 const Posts = () => {
   const dispatch = useDispatch<AppDispatch>();
   const posts = useSelector(selectPosts) || [];
   const isLoading = useSelector(selectPostsLoading);
   const error = useSelector(selectPostsError);
-  const { isLogged } = useSelector((state: RootState) => state.auth);
+  const {isLogged} = useSelector((state: RootState) => state.auth);
   const currentPage = useSelector((state: RootState) => state.posts.currentPage);
 
   const [showModal, setShowModal] = useState(false);
@@ -56,13 +58,13 @@ const Posts = () => {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({top: 0, behavior: 'smooth'});
   };
 
   const scrollToPost = (id: number) => {
     const element = postRefs.current[id];
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({behavior: 'smooth'});
     }
   };
 
@@ -173,120 +175,128 @@ const Posts = () => {
   }, []);
 
   return (
-    <div className="posts-container">
-      <h1 className="posts-title">Страница постов</h1>
 
-      {isLoading && <h2 className="loading">Загрузка...</h2>}
-      {error && <h2 className="error">{error}</h2>}
+    <>
+      <h1 className={styles.posts__title}>POSTS</h1>
+      <div className={styles.posts__container}>
 
-      {isLogged && (
-        <div className="post-item__actions-admin">
-          <button className="post-item__delete" onClick={handleClearPosts}>
-            Удалить все посты
-          </button>
+        {isLoading && <h2 className="loading">Loading...</h2>}
+        {error && <h2 className="error">{error}</h2>}
 
-          <button className="post-item__edit" onClick={() => handleOpen()}>
-            Создать пост
-          </button>
+        {!isLoading && !error && (
+          <div className={styles.posts__content}>
 
-          {showModal && (
-            <Modal onClose={handleClose}>
-              <h2 className="modal__title">
-                {currentPost?.id ? 'Редактировать пост' : 'Создать новый пост'}
-              </h2>
+            <ul className={styles.posts__menu}>
+              {posts.length > 0 ? (
+                posts.map((post: PostInterface) => (
+                  <li key={post.id} className={styles.posts__menu_item}>
+                    <button className={styles.posts__menu_link} onClick={() => scrollToPost(post.id)}>
+                      {post.title}
+                    </button>
+                  </li>
+                ))
+              ) : (
+                <li className={styles.posts__menu_item}>Posts not found</li>
+              )}
+            </ul>
 
-              {error && <p className="error">{error}</p>}
+            <div className={styles.post__items}>
 
-              <PostForm onSubmit={currentPost?.id ? handleEditPost : handleAddPost} post={currentPost || INITIAL_POST} />
-            </Modal>
-          )}
-        </div>
-      )}
 
-      {!isLoading && !error && (
-        <div className="posts-box">
-          <ul className="posts-menu">
-            {posts.length > 0 ? (
-              posts.map((post: PostInterface) => (
-                <li key={post.id} className="posts-menu-item">
-                  <button className="new-post-link" onClick={() => scrollToPost(post.id)}>
-                    {post.title}
+              {isLogged && (
+                <div className={styles.posts__actions}>
+                  <button className={styles.posts__actions_btn} onClick={handleClearPosts}>
+                    Delete all posts
                   </button>
-                </li>
-              ))
-            ) : (
-              <li className="posts-menu-item">Посты не найдены</li>
-            )}
-          </ul>
-<div>
-          <div className="pagination">
-            <button
-              className="pagination__btn"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Назад
-            </button>
 
-            {[...Array(totalPages)].map((_, i) => (
-              <button
-                key={i + 1}
-                className={`pagination__btn ${currentPage === i + 1 ? 'active' : ''}`}
-                onClick={() => handlePageChange(i + 1)}
-              >
-                {i + 1}
-              </button>
-            ))}
+                  <button className={styles.posts__actions_btn} onClick={() => handleOpen()}>
+                    Create new post
+                  </button>
 
-            <button
-              className="pagination__btn"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Вперед
-            </button>
-          </div>
+                  {showModal && (
+                    <Modal onClose={handleClose}>
+                      <h2 className={modalStyles.modal__title}>
+                        {currentPost?.id ? 'Edit post' : 'Create new post'}
+                      </h2>
 
-          <ul className="posts-list">
-            {posts.length > 0 ? (
-              posts.map((post: PostInterface) => (
-                <li key={post.id} className="post-item" ref={(el) => (postRefs.current[post.id] = el)}>
-                  <a href={`/posts/${post.id}`} className="post-link">
-                    <h3 className="post-title">{post.title}</h3>
-                    <p className="post-description">{post.description}</p>
-                    <img className="post-image" src={post.image} alt="Изображение поста" />
-                  </a>
+                      {error && <p className="error">{error}</p>}
 
-                  {isLogged && (
-                    <div className="post-item__actions">
-                      <button className="post-item__delete" onClick={() => handleRemovePost(post.id)}>
-                        <FaTrash />
-                      </button>
-
-                      <button className="post-item__edit" onClick={() => handleOpen(post)}>
-                        <FaEdit />
-                      </button>
-                    </div>
+                      <PostForm onSubmit={currentPost?.id ? handleEditPost : handleAddPost}
+                                post={currentPost || INITIAL_POST}/>
+                    </Modal>
                   )}
-                </li>
-              ))
-            ) : (
-              <li className="post-item">Посты не найдены</li>
-            )}
-          </ul>
-        </div>
-        </div>
-      )}
+                </div>
+              )}
 
-      {showButton && (
-        <button className="button-prev show" onClick={scrollToTop}>
-          ↑ Вернуться к началу
-        </button>
-      )}
+              <div className={styles.pagination}>
+                <button
+                  className={styles.pagination__btn}
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Prev
+                </button>
 
-      <ToastContainer />
-    </div>
-  );
+                {[...Array(totalPages)].map((_, i) => (
+                  <button
+                    key={i + 1}
+                    className={`${styles.pagination__btn} ${currentPage === i + 1 ? styles.active : ''}`}
+                    onClick={() => handlePageChange(i + 1)}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+
+                <button
+                  className={styles.pagination__btn}
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+
+              <ul className={styles.post__list}>
+                {posts.length > 0 ? (
+                  posts.map((post: PostInterface) => (
+
+                    <li key={post.id} className={styles.post__item} ref={(el) => (postRefs.current[post.id] = el)}>
+                      <h3 className={styles.post__title}>{post.title}</h3>
+                      <p className={styles.post__description}>{post.description}</p>
+                      <img className={styles.post__image} src={post.image} alt="Изображение поста"/>
+
+                      {isLogged && (
+                        <div className={styles.post__actions}>
+                          <button className={styles.post__btn} onClick={() => handleRemovePost(post.id)}>
+                            <FaTrash/>
+                          </button>
+
+                          <button className={styles.post__btn} onClick={() => handleOpen(post)}>
+                            <FaEdit/>
+                          </button>
+                        </div>
+                      )}
+                    </li>
+                  ))
+                ) : (
+                  <li className={styles.post__item}>Posts not found</li>
+                )}
+              </ul>
+            </div>
+
+          </div>
+        )}
+
+        {showButton && (
+          <button className={`${styles.button_prev} ${styles.show}`} onClick={scrollToTop}>
+            ↑ Back to top
+          </button>
+        )}
+
+        <ToastContainer/>
+      </div>
+    </>
+  )
 }
 
 export default Posts;

@@ -11,7 +11,8 @@
   margin-top: 20px;
 }
 
-/* product-item */
+/* product-items */
+
 .product__items {
   display: grid;
   grid-template-areas:
@@ -24,7 +25,7 @@
   grid-template-rows: auto 1fr auto  auto auto auto;
   gap: 10px;
   background: #a3a3a338;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   user-select: none;

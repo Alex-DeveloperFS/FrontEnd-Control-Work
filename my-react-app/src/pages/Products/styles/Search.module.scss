@@ -1,0 +1,26 @@
+.search__group  {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.search__input {
+  width: 100%;
+}
+
+.search__btn {
+  width: 15%;
+  padding: 10px 20px;
+  border: none;
+  background-color: #000000;
+  font-family: "Roboto Slab", serif;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #4b4b4b;
+    transform: translateY(-2px);
+  }
+}

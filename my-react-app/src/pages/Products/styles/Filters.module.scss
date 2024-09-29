@@ -1,6 +1,13 @@
+@import '../../../styles/_mixins-media.scss';
+
 .filters {
   width: 30%;
+  height: 10%;
   background-color: #EBEBEB;
+
+  @include lg {
+    display: none;
+  }
 }
 
 .filters__title {
@@ -28,9 +35,10 @@
     font-size: 18px;
     padding: 6px;
     font-weight: 600;
+    background-color: #EBEBEB;
   }
 
-  &__btn:hover, &__btn:active, &__btn.active{
+  &__btn:hover, {
     background-color: #757373db;
     color: #ffffff;
   }
@@ -56,11 +64,11 @@
     cursor: pointer;
     margin-left: 10px;
     margin-top: 10px;
-  }
 
-  &__btn:hover, &__btn.active {
-    background-color: #757373db;
-    color: #ffffff;
+    &:hover, &.active {
+      background-color: #757373db;
+      color: #ffffff;
+    }
   }
 }
 
@@ -83,10 +91,15 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     margin-bottom: 30px;
+
+    &:hover {
+      background-color: #4b4b4b;
+      transform: translateY(-2px);
+    }
   }
 }
 
-.select {
+.select__item {
   border-bottom: #121212 solid 1px;
   padding: 7px;
 }
