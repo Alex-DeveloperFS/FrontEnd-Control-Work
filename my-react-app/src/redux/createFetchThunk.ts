@@ -12,7 +12,6 @@ export function createFetchThunk<T>(typePrefix: string) {
         throw new Error(`Error: Request failed with status code ${response.status}`)
       }
       return response.data
-
     } catch (error) {
       const axiosError = error as AxiosError
       return rejectWithValue(axiosError.message)

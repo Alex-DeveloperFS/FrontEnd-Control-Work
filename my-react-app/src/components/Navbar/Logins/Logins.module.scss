@@ -1,0 +1,84 @@
+@import '../../../styles/mixins-media.scss';
+
+.navbar {
+
+  &__logo {
+    font-size: 30px;
+    border-bottom: 2px solid #afafaf;
+    width: 100%;
+
+    @include xs {
+      font-size: 26px;
+    }
+
+    @include xx {
+      font-size: 24px;
+    }
+
+    &__text {
+        text-align: center;
+    }
+
+    &_span {
+      color: #818181;
+      font-size: 20px;
+      margin-left: 5px;
+
+      @include xs {
+        font-size: 16px;
+      }
+    }
+  }
+
+  &__list {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  &__links {
+    display: flex;
+  }
+
+  &__link {
+    padding: 5px 10px;
+    color: #000000;
+    transition: all 0.3s ease-in-out;
+    font-size: 18px;
+    line-height: 1.25;
+    border: none;
+    font-family: "Roboto Slab", serif;
+    font-weight: 600;
+    background-color: #ffffff;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__photos {
+    @include lg {
+      display: none;
+    }
+  }
+}
+
+.search__btn {
+  width: 15%;
+  padding: 10px 20px;
+  border: none;
+  background-color: #000000;
+  font-family: "Roboto Slab", serif;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #4b4b4b;
+    transform: translateY(-2px);
+  }
+}

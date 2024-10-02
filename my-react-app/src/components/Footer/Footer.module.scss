@@ -3,14 +3,12 @@
     background-color: black;
     padding: 50px;
     margin-top: 50px;
-
   }
 
   &__icons {
     display: flex;
     justify-content: center;
     align-items: center;
-
   }
 
   &__icon {
@@ -24,7 +22,6 @@
       color: #4b4b4b;
       transform: translateY(-2px);
     }
-
   }
 
   &__text {

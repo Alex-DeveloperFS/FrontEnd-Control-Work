@@ -1,29 +1,26 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppDispatch} from '../../redux/store.ts'
-import {
-  fetchAllOrders,
-  selectOrders,
-  selectOrdersError,
-  selectOrdersLoading,
-  removeOrder,
-  clearOrders
-} from '../../redux/orderSlice.ts'
+import {fetchAllOrders, selectOrders, selectOrdersError, selectOrdersLoading, removeOrder, clearOrders} from '../../redux/orderSlice.ts'
 import {OrderInterface} from '../../types/Order.Interface.ts'
-import styles from "./Orders.module.scss";
+import Modal from "../../modals/Modal.tsx"
+import modalStyles from "../../modals/Modal.module.scss"
+import Logins from "../../components/Navbar/Logins/Logins.tsx"
+import styles from "./Orders.module.scss"
+import useModalMenu from "../../hooks/useModalMenu.ts"
 
 const Orders = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const orders = useSelector(selectOrders);
-  const isLoading = useSelector(selectOrdersLoading);
-  const error = useSelector(selectOrdersError);
+  const dispatch = useDispatch<AppDispatch>()
+  const orders = useSelector(selectOrders)
+  const isLoading = useSelector(selectOrdersLoading)
+  const error = useSelector(selectOrdersError)
+  const {isMenuOpen, isMobile, openMenu, closeMenu} = useModalMenu()
 
   useEffect(() => {
     dispatch(fetchAllOrders('https://66a4ef2a5dc27a3c190a3666.mockapi.io/buyer'))
   }, [dispatch])
 
   const handleRemoveOrder = (orderId: string) => {
-
     if (window.confirm('Are you sure you want to remove this order?')) {
       dispatch(removeOrder(orderId))
         .unwrap()
@@ -37,7 +34,6 @@ const Orders = () => {
   }
 
   const handleClearOrders = () => {
-
     if (window.confirm('Are you sure you want to clear all orders?')) {
       dispatch(clearOrders())
         .unwrap()
@@ -50,8 +46,31 @@ const Orders = () => {
     }
   }
 
+  const handleBurgerClick = () => {
+    if (!isMenuOpen) {
+      openMenu();
+    } else {
+      closeMenu();
+    }
+  }
+
   return (
     <>
+      {isMobile && (
+        <button onClick={handleBurgerClick} className={styles.burger}>
+          <span className={styles.burger__line}></span>
+          <span className={styles.burger__line}></span>
+          <span className={styles.burger__line}></span>
+        </button>
+      )}
+
+      {isMenuOpen && (
+        <Modal onClose={closeMenu} className={modalStyles.modal__overlay_cat}>
+          <Logins/>
+          <div className={styles.height}></div>
+        </Modal>
+      )}
+
       <h1 className={styles.orders__title}>ORDERS</h1>
       <div className={styles.orders__container}>
         {isLoading && <h2 className="loading">Loading...</h2>}
@@ -65,22 +84,17 @@ const Orders = () => {
                 orders.map((order: OrderInterface) => (
 
                   <li key={order.id} className={styles.order__list}>
-
                     <h3 className={styles.order__number}>Order: {order.id}</h3>
-
                     <div className={styles.order__content}>
                       <div className={styles.order__product}>
                         {order.products && order.products.length > 0 ? (
                           order.products.map((product) => (
-
                             <div key={product.id} className={styles.order__items}>
                               <img src={product.image} alt="image" className={styles.order__image}/>
-
 
                               <p className={styles.order__name}>NAME:</p>
                               <p className={styles.order__price}>PRICE:</p>
                               <p className={styles.order__quantity}>PCS:</p>
-
 
                               <p className={styles.order__name_product}>Product: {product.name}</p>
                               <p className={styles.order__price_product}>{product.price}$</p>
@@ -92,15 +106,12 @@ const Orders = () => {
                         )}
                       </div>
                       <div className={styles.order__user}>
-
                         <div className={styles.users__list}>
-
                           <p className={styles.user__name}>USER:</p>
                           <p className={styles.user__phone}>PHONE:</p>
                           <p className={styles.user__email}>EMAIL:</p>
                           <p className={styles.user__quantity}>TOTAL QUANTITY:</p>
                           <p className={styles.user__price}>TOTAL PRICE:</p>
-
 
                           <p className={styles.user__name_bayer}>{order.usersBuyer.name} {order.usersBuyer.surname}</p>
                           <p className={styles.user__phone_bayer}>{order.usersBuyer.phone}</p>
@@ -108,23 +119,17 @@ const Orders = () => {
                           <p className={styles.user__quantity_bayer}>{order.totalQuantity}</p>
                           <p className={styles.user__price_bayer}>{order.totalPrice}$</p>
                         </div>
-
                         <div className={styles.btn__group}>
-                          <button className={styles.btn__group_item} onClick={() => handleRemoveOrder(order.id)}>Delete
-                          </button>
+                          <button className={styles.btn__group_item} onClick={() => handleRemoveOrder(order.id)}>Delete</button>
                           <button className={styles.btn__group_item}>Confirm order</button>
                         </div>
-
                       </div>
                     </div>
-
-
                   </li>
                 ))
               ) : (
                 <h2 className="error">Orders not found</h2>
               )}
-
             </ul>
           </>
         )}

@@ -1,7 +1,7 @@
 import {FormEvent, useState} from 'react'
 import InputField from './InputField.tsx'
 import {ProductInterface} from "../../types/Product.Interface.ts"
-import {clearBasket} from "../../redux/basketSlice.ts"
+import {clearBasket} from "../../redux/cartSlice.ts"
 import {useDispatch} from "react-redux"
 import styles from './Form.module.scss'
 
@@ -52,7 +52,6 @@ const BuyForm = ({onSubmit, products, totalQuantity, totalPrice, usersBuyer, onC
         },
         body: JSON.stringify(returnedDeal)
       })
-
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -61,11 +60,9 @@ const BuyForm = ({onSubmit, products, totalQuantity, totalPrice, usersBuyer, onC
       onSubmit(returnedDeal);
       onClose();
       dispatch(clearBasket())
-
     } catch (error) {
       console.error('Error submitting deal:', error);
       setError('Error submitting your order. Please try again.');
-
     } finally {
       setIsSubmitting(false);
     }
@@ -110,13 +107,13 @@ const BuyForm = ({onSubmit, products, totalQuantity, totalPrice, usersBuyer, onC
         />
 
         <h2 className="product-item__title">Order summary:</h2>
+
         <p>Total Quantity: {totalQuantity}</p>
         <p>Total Price: {totalPrice.toFixed(2)} $</p>
 
         {error && <p className="form-error">{error}</p>}
 
         <div className={styles.form__actions}>
-
           <button className={styles.form__actions_btn} type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Submitting...' : 'Buy Now'}
           </button>
@@ -124,7 +121,6 @@ const BuyForm = ({onSubmit, products, totalQuantity, totalPrice, usersBuyer, onC
           <button className={styles.form__actions_btn} type="button" onClick={onClose}>
             Close
           </button>
-
         </div>
       </form>
     </div>

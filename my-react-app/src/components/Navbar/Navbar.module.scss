@@ -1,5 +1,6 @@
-.navbar {
+@import '../../styles/mixins-media.scss';
 
+.navbar {
 
   &__title {
     text-align: center;
@@ -18,12 +19,24 @@
 
   &__logo {
     font-size: 30px;
-    margin-left: 50px;
+    margin-left: 100px;
+
+    @include xs {
+      font-size: 26px;
+    }
+
+    @include xx {
+      font-size: 24px;
+    }
 
     &_span {
       color: #818181;
       font-size: 20px;
       margin-left: 5px;
+
+      @include xs {
+        font-size: 16px;
+      }
     }
   }
 
@@ -33,11 +46,22 @@
     gap: 15px;
     padding: 20px;
     align-items: center;
+
+    @include xs {
+      gap: 10px;
+      padding: 15px;
+    }
+
+    @include xx {
+      gap: 0;
+      padding: 5px;
+    }
+
   }
 
   &__links {
-  display: flex;
-}
+    display: flex;
+  }
 
   &__link {
     padding: 5px 10px;
@@ -54,8 +78,13 @@
       transform: scale(1.1);
     }
   }
-}
 
+  &__photos {
+    @include lg {
+      display: none;
+    }
+  }
+}
 
 .navbar__img {
   width: calc(100% / 7);

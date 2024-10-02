@@ -1,15 +1,15 @@
-import { ChangeEvent, forwardRef } from 'react';
-import styles from './Form.module.scss';
+import { ChangeEvent, forwardRef } from 'react'
+import styles from './Form.module.scss'
 
 interface InputFieldPropsInterface {
-  id: string;
-  type?: string;
-  value?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  placeholder: string;
-  required?: boolean;
-  textarea?: boolean;
-  className?: string; // Добавлен новый пропс
+  id: string
+  type?: string
+  value?: string
+  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  placeholder: string
+  required?: boolean
+  textarea?: boolean
+  className?: string
 }
 
 const InputField = forwardRef<HTMLInputElement, InputFieldPropsInterface>(
@@ -18,7 +18,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldPropsInterface>(
       <div className={styles.form__items}>
         {textarea ? (
           <textarea
-            className={`${styles.form__control} ${className}`} // Применение классов
+            className={`${styles.form__control} ${className}`}
             id={id}
             value={value}
             onChange={onChange}
@@ -29,7 +29,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldPropsInterface>(
         ) : (
           <input
             ref={ref}
-            className={`${styles.form__control} ${className}`} // Применение классов
+            className={`${styles.form__control} ${className}`}
             id={id}
             type={type}
             value={value}
@@ -40,8 +40,8 @@ const InputField = forwardRef<HTMLInputElement, InputFieldPropsInterface>(
           />
         )}
       </div>
-    );
+    )
   }
-);
+)
 
-export default InputField;
+export default InputField

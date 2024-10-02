@@ -1,3 +1,5 @@
+@import "../../styles/mixins-media";
+
 .users {
 
   &__container {
@@ -7,6 +9,42 @@
     padding-right: 20px;
     margin-top: 50px;
     min-height: calc(100vh - 651px);
+
+    @include ul-min {
+      min-height: calc(100vh - 626px);
+    }
+
+    @include ul {
+      min-height: calc(100vh - 609px);
+    }
+
+    @include ul-xl {
+      min-height: calc(100vh - 601px);
+    }
+
+    @include xl {
+      min-height: calc(100vh - 593px);
+    }
+
+    @include xl-lg {
+      min-height: calc(100vh - 579px);
+    }
+
+    @include lg {
+      min-height: calc(100vh - 492px);
+    }
+
+    @include sm {
+      min-height: calc(100vh - 461px);
+    }
+
+    @include xs {
+      min-height: calc(100vh - 451px);
+    }
+
+    @include xx {
+      min-height: calc(100vh - 431px);
+    }
   }
 
   &__title {
@@ -16,6 +54,12 @@
     padding-top: 25px;
     padding-bottom: 25px;
     letter-spacing: 5px;
+
+    @include sm {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      font-size: 24px;
+    }
   }
 
   &__content {
@@ -23,19 +67,30 @@
     flex-direction: column;
     gap: 40px;
     margin-top: 50px;
-
   }
 }
 
 .user__list {
   display: flex;
+  align-items: center;
+
+  @include md {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+  }
+
+  @include sm {
+    background-color: #d1d1d194;
+    padding: 15px;
+  }
 }
 
 .user__items {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 5% 20% 25% 22% 20%;
   grid-template-rows: 1fr 1fr;
-  gap: 10px 10px;
+  gap: 0 10px;
   grid-template-areas:
         "id name email password date"
         "id-map name-map email-map password-map date-map";
@@ -44,6 +99,21 @@
   border-bottom: 3px solid #b7b7b7;
   padding-bottom: 10px;
 
+  @include lg {
+    grid-template-columns: 5% 20% 25% 22% 20%;
+  }
+
+  @include sm {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 5px 10px;
+    grid-template-areas:
+        "id id-map"
+        "name name-map"
+        "email email-map"
+        "password password-map"
+        "date date-map";
+  }
 }
 
 .user {
@@ -53,9 +123,17 @@
     font-weight: 900;
     font-size: 18px;
 
+    @include md {
+      font-size: 16px;
+    }
+
     &_map {
       grid-area: id-map;
       font-size: 18px;
+
+      @include md {
+        font-size: 16px;
+      }
     }
   }
 
@@ -64,9 +142,17 @@
     font-weight: 900;
     font-size: 18px;
 
+    @include md {
+      font-size: 16px;
+    }
+
     &_map {
       grid-area: name-map;
       font-size: 18px;
+
+      @include md {
+        font-size: 16px;
+      }
     }
   }
 
@@ -75,9 +161,17 @@
     font-weight: 900;
     font-size: 18px;
 
+    @include md {
+      font-size: 16px;
+    }
+
     &_map {
       grid-area: email-map;
       font-size: 18px;
+
+      @include md {
+        font-size: 16px;
+      }
     }
   }
 
@@ -86,9 +180,17 @@
     font-weight: 900;
     font-size: 18px;
 
+    @include md {
+      font-size: 16px;
+    }
+
     &_map {
       grid-area: password-map;
       font-size: 18px;
+
+      @include md {
+        font-size: 16px;
+      }
     }
   }
 
@@ -97,9 +199,17 @@
     font-weight: 900;
     font-size: 18px;
 
+    @include md {
+      font-size: 16px;
+    }
+
     &_map {
       grid-area: date-map;
       font-size: 18px;
+
+      @include md {
+        font-size: 16px;
+      }
     }
   }
 }
@@ -150,3 +260,51 @@
   }
 }
 
+.burger {
+  width: 40px;
+  height: 24px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+
+  border: none;
+  background: none;
+  transition: all 0.3s ease;
+  top: 70px;
+  left: 30px;
+
+  @include xs {
+    top: 65px;
+  }
+
+  @include xx {
+    top: 56px;
+  }
+}
+
+.burger__line {
+  width: 100%;
+  height: 3px;
+  background-color: #333;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.burger__line {
+  background-color: #000;
+}
+
+.height {
+  height: calc(100vh - 376px);
+
+  @include xs {
+    height: calc(100vh - 371px);
+  }
+
+  @include xx {
+    height: calc(100vh - 369px);
+  }
+}

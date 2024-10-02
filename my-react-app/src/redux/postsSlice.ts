@@ -1,14 +1,14 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from './store.ts';
-import axios from 'axios';
-import { PostInterface } from '../types/Post.interface.ts';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from './store.ts'
+import axios from 'axios'
+import { PostInterface } from '../types/Post.Interface.ts'
 
 interface PostsStateInterface {
-  posts: PostInterface[];
-  error: string | null;
-  isLoading: boolean;
-  totalCount: number;
-  currentPage: number;
+  posts: PostInterface[]
+  error: string | null
+  isLoading: boolean
+  totalCount: number
+  currentPage: number
 }
 
 const initialState: PostsStateInterface = {
@@ -73,7 +73,6 @@ export const clearPosts = createAsyncThunk<void>(
 export const selectPosts = (state: RootState) => state.posts.posts;
 export const selectPostsLoading = (state: RootState) => state.posts.isLoading;
 export const selectPostsError = (state: RootState) => state.posts.error;
-export const selectTotalCount = (state: RootState) => state.posts.totalCount;
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -109,10 +108,9 @@ const postsSlice = createSlice({
       })
       .addCase(clearPosts.rejected, (state, action) => {
         state.error = action.error.message || 'Failed to clear posts';
-      });
+      })
   },
-});
+})
 
-export const { setPage } = postsSlice.actions;
-
-export default postsSlice.reducer;
+export const { setPage } = postsSlice.actions
+export default postsSlice.reducer

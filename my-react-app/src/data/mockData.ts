@@ -1,4 +1,5 @@
-import {ProductInterface} from "../types/Product.Interface.ts";
+import {ProductInterface} from "../types/Product.Interface.ts"
+import {PostInterface} from "../types/Post.Interface.ts"
 
 export interface ProductCategoriesInterface {
   value: string,
@@ -40,12 +41,11 @@ export const PRODUCT_CATEGORIES: ProductCategoriesInterface[] = [
   }
 ]
 
-
 export const INITIAL_PRODUCT: Partial<ProductInterface> = {
   name: '',
   brand: '',
   description: '',
-  price: '',
+  price: 0,
   image: '',
   category: ''
 }
@@ -90,12 +90,9 @@ export const ORDER_BY_LIST: OrderByListInterface[] = [
   }
 ]
 
-export const INITIAL_POST: Partial<PostInterface> = {
-  id: '',
+export const INITIAL_POST: PostInterface = {
   title: '',
   description: '',
-  image: ''
+  image: '',
+  id: 0,
 }
-
-
-

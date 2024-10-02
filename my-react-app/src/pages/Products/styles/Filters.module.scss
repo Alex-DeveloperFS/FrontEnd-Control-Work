@@ -2,11 +2,22 @@
 
 .filters {
   width: 30%;
-  height: 10%;
   background-color: #EBEBEB;
+  height: 100vh;
+  min-width: 290px;
 
   @include lg {
-    display: none;
+    width: 100%;
+    padding-top: 5px;
+    height: calc(100vh - 376px);
+  }
+
+  @include xs {
+    height: calc(100vh - 371px);
+  }
+
+  @include xx {
+   height: calc(100vh - 369px);
   }
 }
 
@@ -42,6 +53,11 @@
     background-color: #757373db;
     color: #ffffff;
   }
+}
+
+.active {
+  background-color: #808080;
+  color: white;
 }
 
 /* brand */

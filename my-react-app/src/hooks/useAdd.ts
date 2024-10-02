@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ProductInterface } from '../types/Product.interface.ts'
+import { ProductInterface } from '../types/Product.Interface.ts'
 import axios from 'axios'
 
 export const useAdd = (url: string) => {

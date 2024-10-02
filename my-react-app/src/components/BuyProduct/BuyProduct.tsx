@@ -6,7 +6,7 @@ import {toast} from "react-toastify"
 import styles from '../../pages/Products/styles/Products.module.scss'
 import buyProductStyles from './BuyProduct.module.scss'
 import modalStyles from '../../modals/Modal.module.scss'
-
+import {ReactNode} from "react"
 
 interface BuyProductProps {
   product: ProductInterface
@@ -15,17 +15,16 @@ interface BuyProductProps {
 
 const BuyProduct = ({children, product}: BuyProductProps) => {
   const [showModal, setShowModal] = useState(false)
-  const [quantity, setQuantity] = useState(1)  // Добавляем состояние для количества
+  const [quantity, setQuantity] = useState(1)
 
   const handleOpen = () => setShowModal(true)
   const handleClose = () => setShowModal(false)
 
-  // Пересчитаем общую цену и количество
-  const totalPrice = product.price * quantity
+  const totalPrice = (product.price as number) * quantity
 
-  const handleSubmit = (deal) => {
+  const handleSubmit = () => {
     setShowModal(false)
-    toast.success('Товар успешно куплен!')
+    toast.success('Successful buyed!')
   }
 
   return (
@@ -61,10 +60,11 @@ const BuyProduct = ({children, product}: BuyProductProps) => {
               <p className={buyProductStyles.product__total_price_map}>{totalPrice} $</p>
             </div>
           </div>
+
           <BuyForm
             onSubmit={handleSubmit}
             onClose={handleClose}
-            products={[{...product, quantity}]}  // Передаем количество продукта
+            products={[{...product, quantity, totalPrice}]}
             totalQuantity={quantity}
             totalPrice={totalPrice}
             usersBuyer={{name: '', surname: '', phone: '', email: ''}}

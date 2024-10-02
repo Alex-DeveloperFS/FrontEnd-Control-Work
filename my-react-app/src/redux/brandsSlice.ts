@@ -1,29 +1,27 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 interface BrandsState {
-  brands: string[];
-  loading: boolean;
-  error: string | null;
+  brands: string[]
+  loading: boolean
+  error: string | null
 }
 
 const initialState: BrandsState = {
   brands: [],
   loading: true,
   error: null,
-};
+}
 
-// Асинхронный thunk для получения брендов
 export const fetchBrands = createAsyncThunk('brands/fetchBrands', async () => {
-  const response = await fetch('https://66a4ef2a5dc27a3c190a3666.mockapi.io/product');
+  const response = await fetch('https://66a4ef2a5dc27a3c190a3666.mockapi.io/product')
   if (!response.ok) {
-    throw new Error('Network response was not ok');
+    throw new Error('Network response was not ok')
   }
-  const data = await response.json();
-  const uniqueBrands = Array.from(new Set(data.map((product: any) => product.brand)));
-  return uniqueBrands;
-});
+  const data = await response.json()
+  const uniqueBrands: string[] = Array.from(new Set(data.map((product: any) => product.brand)))
+  return uniqueBrands
+})
 
-// Создание среза
 const brandsSlice = createSlice({
   name: 'brands',
   initialState,
@@ -31,18 +29,18 @@ const brandsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchBrands.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loading = true
+        state.error = null
       })
       .addCase(fetchBrands.fulfilled, (state, action) => {
-        state.loading = false;
-        state.brands = action.payload;
+        state.loading = false
+        state.brands = action.payload
       })
       .addCase(fetchBrands.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Failed to fetch brands';
-      });
+        state.loading = false
+        state.error = action.error.message || 'Failed to fetch brands'
+      })
   },
-});
+})
 
-export default brandsSlice.reducer;
+export default brandsSlice.reducer

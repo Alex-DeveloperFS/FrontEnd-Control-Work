@@ -1,7 +1,7 @@
-import {FormEvent, useState} from 'react';
-import InputField from './InputField.tsx';
-import styles from "./Form.module.scss";
-
+import {FormEvent, useState} from 'react'
+import InputField from './InputField.tsx'
+import styles from "./Form.module.scss"
+import {PostInterface} from "../../types/Post.Interface.ts"
 
 interface PostFormPropsInterface {
   onSubmit: (post: PostInterface) => void;
@@ -9,22 +9,19 @@ interface PostFormPropsInterface {
 }
 
 const PostForm = ({onSubmit, post}: PostFormPropsInterface) => {
-  const [id, setId] = useState(post.id);
-  const [description, setDescription] = useState(post.description);
-  const [title, setTitle] = useState(post.title);
-  const [image, setImage] = useState(post.image);
+  const [id] = useState(post.id)
+  const [description, setDescription] = useState(post.description)
+  const [title, setTitle] = useState(post.title)
+  const [image, setImage] = useState(post.image)
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    const updatedPost: PostInterface = {id, title, description, image};
-
-    onSubmit(updatedPost);
-  };
+    e.preventDefault()
+    const updatedPost: PostInterface = {id, title, description, image}
+    onSubmit(updatedPost)
+  }
 
   return (
     <form onSubmit={handleSubmit} className={styles.form__container}>
-
       <InputField
         id="title"
         value={title}
@@ -55,7 +52,7 @@ const PostForm = ({onSubmit, post}: PostFormPropsInterface) => {
         </button>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default PostForm;
+export default PostForm

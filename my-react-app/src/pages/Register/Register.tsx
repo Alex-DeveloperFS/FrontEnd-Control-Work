@@ -2,7 +2,7 @@ import {FC} from 'react'
 import {useForm, SubmitHandler} from 'react-hook-form'
 import {yupResolver} from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import {toast, ToastContainer} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify"
 import styles from './Register.module.scss'
 
 const registerSchema = yup.object({
@@ -10,8 +10,8 @@ const registerSchema = yup.object({
   email: yup.string().required('Email is required').email('Email must be a valid email address'),
   password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
   confirmPassword: yup.string()
-    .oneOf([yup.ref('password'), null], 'Passwords must match')
-    .required('Confirm Password is required' ),
+    .required('Confirm Password is required')
+    .oneOf([yup.ref('password')], 'Passwords must match'),
 }).required()
 
 interface FormValues {
@@ -38,25 +38,24 @@ const RegisterForm: FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(returnedDeal),
-      });
+      })
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
 
-      console.log('Deal submitted successfully:', await response.json());
+      console.log('Deal submitted successfully:', await response.json())
       toast.success('Вы успешно зарегистрированы!')
-      reset();
+      reset()
 
     } catch (error) {
       console.error('Error submitting deal:', error);
     }
-  };
+  }
 
   return (
     <>
       <h1 className={styles.register__title}>REGISTER</h1>
-
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.register__form}>
 
@@ -97,4 +96,4 @@ const RegisterForm: FC = () => {
   )
 }
 
-export default RegisterForm;
+export default RegisterForm

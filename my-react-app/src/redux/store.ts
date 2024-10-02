@@ -3,10 +3,11 @@ import authReducer from './authSlice'
 import usersReducer from './userSlice'
 import postsReducer from './postsSlice'
 import productsReducer from './productsSlice'
-import basketReducer from './basketSlice'
+import basketReducer from './cartSlice.ts'
 import orderReducer from './orderSlice'
 import brandsReducer from './brandsSlice'
-import productsFiltersReducer from './productFiltersSlice';
+import productsFiltersReducer from './productFiltersSlice'
+import categoriesReducer from './categoriesSlice'
 
 export const store = configureStore({
   reducer: {
@@ -17,14 +18,14 @@ export const store = configureStore({
     basket: basketReducer,
     orders: orderReducer,
     brands: brandsReducer,
+    categories: categoriesReducer,
     productsFilters: productsFiltersReducer,
-
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),
-});
+})
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

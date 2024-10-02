@@ -21,11 +21,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src",
-    "src/hooks/**/*"
+    "src"
   ],
-  "references": [{ "path": "./tsconfig.node.json" }],
-  "files": [
-    "src/hooks/useFetch.tsx"
-  ]
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -7,7 +7,7 @@ import {Provider} from "react-redux"
 import {store} from "./redux/store.ts"
 import Orders from "./pages/Orders/Orders.tsx"
 import Register from "./pages/Register/Register.tsx"
-import Footer from "./components/Footer/Footer.tsx";
+import Footer from "./components/Footer/Footer.tsx"
 
 const App = () => {
 

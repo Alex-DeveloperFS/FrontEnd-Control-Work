@@ -1,41 +1,46 @@
-import {ProductInterface} from '../types/Product.interface.ts';
-import {FaTrash} from 'react-icons/fa6';
-import {FaEdit} from 'react-icons/fa';
-import {AxiosError} from 'axios';
-import {API_URL} from '../utils/mockApi.ts';
-import {useDelete} from '../hooks/useDelete.ts';
-import EditProduct from './EditProduct.tsx';
-import BuyProduct from "./BuyProduct/BuyProduct.tsx";
-import AddToBasket from "./AddToBasket.tsx";
-import {RootState} from "../redux/store.ts";
-import {useSelector} from "react-redux";
-import {toast, ToastContainer} from "react-toastify";
-import { useDispatch } from 'react-redux';
-import { fetchBrands } from '../redux/brandsSlice.ts';
-import styles from '../pages/Products/styles/Products.module.scss';
+import {ProductInterface} from '../types/Product.Interface.ts'
+import {FaTrash} from 'react-icons/fa6'
+import {FaEdit} from 'react-icons/fa'
+import {AxiosError} from 'axios'
+import {API_URL} from '../utils/mockApi.ts'
+import {useDelete} from '../hooks/useDelete.ts'
+import EditProduct from './EditProduct.tsx'
+import BuyProduct from "./BuyProduct/BuyProduct.tsx"
+import AddToCart from "./AddToCart.tsx"
+import {AppDispatch, RootState} from "../redux/store.ts"
+import {useSelector} from "react-redux"
+import {toast} from "react-toastify"
+import { useDispatch } from 'react-redux'
+import { fetchBrands } from '../redux/brandsSlice.ts'
+import styles from '../pages/Products/styles/Products.module.scss'
+import {Dispatch, SetStateAction} from "react"
+import {fetchCategories} from "../redux/categoriesSlice.ts"
 
 interface ProductPropsInterface {
-  product: ProductInterface;
-  reloadProduct: () => void;
-  resetFilters: () => void; // Добавляем resetFilters как параметр
+  product: ProductInterface
+  reloadProduct: () => void
+  resetFilters: () => void
+  setPage: Dispatch<SetStateAction<number>>
+  selectedBrand: string | null
 }
 
 const Product = ({ product: {id, brand, name, description, category, price, image}, reloadProduct, resetFilters }: ProductPropsInterface) => {
-  const {isLogged} = useSelector((state: RootState) => state.auth);
-  const {delete: deleteProduct} = useDelete(API_URL);
+  const {isLogged} = useSelector((state: RootState) => state.auth)
+  const {delete: deleteProduct} = useDelete(API_URL)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>()
 
   const handleDeleteProduct = async () => {
     try {
-      await deleteProduct(id);
-      toast.success('Товар успешно удален!');
-      resetFilters();
-      reloadProduct();
+      await deleteProduct(id)
+      toast.success('Successfully deleted!')
+      resetFilters()
+      reloadProduct()
       dispatch(fetchBrands());
+      dispatch(fetchCategories())
     } catch (error) {
-      console.log((error as AxiosError).message);
-      toast.error('Ошибка при удалении продукта');
+      console.log((error as AxiosError).message)
+      toast.error('Error deleting product!')
     }
   }
 
@@ -60,11 +65,11 @@ const Product = ({ product: {id, brand, name, description, category, price, imag
       ) : (
         <div className={styles.product__actions}>
           <BuyProduct product={{id, brand, name, description, category, price, image}}/>
-          <AddToBasket product={{id, brand, name, description, category, price, image}}/>
+          <AddToCart product={{id, brand, name, description, category, price, image}} children={''}/>
         </div>
       )}
     </li>
-  );
+  )
 }
 
 export default Product;

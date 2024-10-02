@@ -1,4 +1,4 @@
-import { ProductInterface } from '../../types/Product.interface.ts'
+import { ProductInterface } from '../../types/Product.Interface.ts'
 import { FormEvent, useState } from 'react'
 import { PRODUCT_CATEGORIES } from '../../data/mockData.ts'
 import InputField from './InputField.tsx'
@@ -21,12 +21,10 @@ const ProductForm = ({ onSubmit, product }: ProductFormPropsInterface) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     const returnedProduct: Partial<ProductInterface> = { name, brand, description, price, image, category }
-
     if (product.id) {
       returnedProduct.id = product.id
     }
     onSubmit(returnedProduct)
-
   }
 
   return (
@@ -38,15 +36,12 @@ const ProductForm = ({ onSubmit, product }: ProductFormPropsInterface) => {
         placeholder="Product name..."
         className={`${styles.form__control} ${styles.white}`}
       />
-
-
       <InputField
         id="brand"
         value={brand}
         onChange={(e) => setBrand(e.target.value)}
         placeholder="Brand..."
         className={`${styles.form__control} ${styles.white}`}
-
       />
       <InputField
         id="description"
@@ -63,7 +58,6 @@ const ProductForm = ({ onSubmit, product }: ProductFormPropsInterface) => {
         onChange={(e) => setPrice(+e.target.value)}
         placeholder="Price..."
         className={`${styles.form__control} ${styles.white}`}
-
       />
       <InputField
         id="image"
@@ -72,7 +66,6 @@ const ProductForm = ({ onSubmit, product }: ProductFormPropsInterface) => {
         onChange={(e) => setImage(e.target.value)}
         placeholder="Image URL..."
         className={`${styles.form__control} ${styles.white}`}
-
       />
       <SelectField
         id="category"
@@ -87,7 +80,6 @@ const ProductForm = ({ onSubmit, product }: ProductFormPropsInterface) => {
           Submit
         </button>
       </div>
-
     </form>
   )
 }

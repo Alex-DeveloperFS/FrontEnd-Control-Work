@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ProductInterface } from '../types/Product.interface.ts'
+import { ProductInterface } from '../types/Product.Interface.ts'
 import { createFetchThunk } from './createFetchThunk.ts'
 import { RootState } from './store.ts'
 
@@ -17,29 +17,24 @@ const initialState: ProductStateInterface = {
 
 export const fetchAllProducts = createFetchThunk<ProductInterface>('posts/fetchAllProducts')
 
-const productsSlice = createSlice<unknown>({
+const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-
       .addCase(fetchAllProducts.pending, (state) => {
         state.isLoading = true
         state.error = null
       })
-
       .addCase(fetchAllProducts.fulfilled, (state, action: PayloadAction<ProductInterface[]>) => {
         state.isLoading = false
         state.products = action.payload
       })
-
       .addCase(fetchAllProducts.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false
-
         if (action.payload instanceof Error) {
           state.error = action.payload.message
-
         } else {
           state.error = 'An error occurred'
         }

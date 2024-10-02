@@ -1,5 +1,5 @@
 import {ProductInterface} from "./Product.Interface.ts"
-import {UserBuyerInterface} from "./UserBuyer.interface.ts"
+import {UserBuyerInterface} from "./UserBuyer.Interface.ts"
 
 export interface OrderInterface {
   id: string

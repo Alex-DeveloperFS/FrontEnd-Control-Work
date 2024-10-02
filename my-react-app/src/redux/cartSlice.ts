@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ProductInterface } from '../types/Product.Interface.ts'
 
-interface BasketState {
+interface CartState {
   items: {
-    [id: number]:
-      { product: ProductInterface;
-        quantity: number
-      }
+    [id: string]: {
+      product: ProductInterface;
+      quantity: number
+    }
   }
 }
 
-const initialState: BasketState = {
+const initialState: CartState = {
   items: {},
 }
 
@@ -18,18 +18,19 @@ const cartSlice = createSlice({
   name: 'basket',
   initialState,
   reducers: {
-
     addToBasket: (state, action: PayloadAction<ProductInterface>) => {
-      const product = action.payload;
-      if (state.items[product.id]) {
-        state.items[product.id].quantity += 1
+      const product = action.payload
+      const id = product.id.toString()
+      if (state.items[id]) {
+        state.items[id].quantity += 1
       } else {
-        state.items[product.id] = { product, quantity: 1 }
+        state.items[id] = { product, quantity: 1 }
       }
     },
 
     removeFromBasket: (state, action: PayloadAction<number>) => {
-      delete state.items[action.payload];
+      const id = action.payload.toString();
+      delete state.items[id]
     },
 
     clearBasket: (state) => {
@@ -37,14 +38,16 @@ const cartSlice = createSlice({
     },
 
     increaseQuantity: (state, action: PayloadAction<number>) => {
-      if (state.items[action.payload]) {
-        state.items[action.payload].quantity += 1
+      const id = action.payload.toString();
+      if (state.items[id]) {
+        state.items[id].quantity += 1
       }
     },
 
     decreaseQuantity: (state, action: PayloadAction<number>) => {
-      if (state.items[action.payload] && state.items[action.payload].quantity > 1) {
-        state.items[action.payload].quantity -= 1
+      const id = action.payload.toString()
+      if (state.items[id] && state.items[id].quantity > 1) {
+        state.items[id].quantity -= 1
       }
     },
   },

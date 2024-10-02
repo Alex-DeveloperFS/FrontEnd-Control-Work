@@ -1,5 +1,5 @@
 import styles from './Footer.module.scss'
-import {FaGithub, FaLinkedin, FaTelegram} from "react-icons/fa";
+import {FaGithub, FaLinkedin, FaTelegram} from "react-icons/fa"
 
 const Footer = () => {
   return (
@@ -15,4 +15,5 @@ const Footer = () => {
     </div>
   )
 }
+
 export default Footer

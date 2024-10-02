@@ -1,12 +1,49 @@
+@import "../../styles/mixins-media";
+
 .orders {
 
-    &__container {
-      width: min(100% - 40px, 1340px);
-      margin-inline: auto;
-      margin-top: 50px;
-      min-height: calc(100vh - 651px);
+  &__container {
+    width: min(100% - 40px, 1340px);
+    margin-inline: auto;
+    margin-top: 50px;
+    min-height: calc(100vh - 651px);
 
+    @include ul-min {
+      min-height: calc(100vh - 626px);
     }
+
+    @include ul {
+      min-height: calc(100vh - 609px);
+    }
+
+    @include ul-xl {
+      min-height: calc(100vh - 601px);
+    }
+
+    @include xl {
+      min-height: calc(100vh - 593px);
+    }
+
+    @include xl-lg {
+      min-height: calc(100vh - 579px);
+    }
+
+    @include lg {
+      min-height: calc(100vh - 492px);
+    }
+
+    @include sm {
+      min-height: calc(100vh - 461px);
+    }
+
+    @include xs {
+      min-height: calc(100vh - 451px);
+    }
+
+    @include xx {
+      min-height: calc(100vh - 431px);
+    }
+  }
 
   &__title {
     text-align: center;
@@ -15,6 +52,12 @@
     padding-top: 25px;
     padding-bottom: 25px;
     letter-spacing: 5px;
+
+    @include sm {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      font-size: 24px;
+    }
   }
 }
 
@@ -37,6 +80,10 @@
   &__content {
     display: flex;
     gap: 10px;
+
+    @include lg {
+      flex-direction: column;
+    }
   }
 
   &__product {
@@ -44,17 +91,29 @@
     flex-direction: column;
     gap: 10px;
     width: 70%;
+
+    @include lg {
+      width: 100%;
+    }
   }
 
   &__items {
     display: grid;
-    grid-template-columns: 15% 69% 8% 8%;
+    grid-template-columns: 15% 65% 10% 10%;
     grid-template-rows: 30% 70%;
     gap: 0 0;
     grid-template-areas:
     "image name price quantity"
     "image name_product price_product quantity_product";
     align-items: center;
+
+    @include md {
+      grid-template-columns: 15% 55% 15% 15%;
+    }
+
+    @include xs {
+      grid-template-columns: 15% 50% 20% 15%;
+    }
   }
 
   &__image {
@@ -83,7 +142,6 @@
     padding-right: 10px;
     border-bottom: 1px solid rgba(173, 173, 173, 0.78);
 
-
     &_product {
       grid-area: price_product;
       padding-left: 10px;
@@ -99,7 +157,6 @@
 
     &_product {
       grid-area: quantity_product;
-
       padding-left: 20px;
       font-size: 20px;
     }
@@ -115,6 +172,10 @@
   align-items: center;
   justify-content: center;
   padding: 15px;
+
+  @include lg {
+    width: 100%;
+  }
 }
 
 .users__list {
@@ -137,6 +198,26 @@
         "total-price total-price-bayer";
   align-items: center;
   width: 100%;
+
+  @include lg {
+    grid-template-columns:  21% 17% 22% 19% 14%;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "name phone email quantity total-price"
+        "name-bayer phone-bayer email-bayer quantity-bayer total-price-bayer";
+  }
+
+  @include sm {
+    grid-template-columns:  45% 51%;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 15px 15px;
+    grid-template-areas:
+        "name name-bayer"
+        "phone phone-bayer"
+        "email email-bayer"
+        "quantity quantity-bayer"
+        "total-price total-price-bayer";
+  }
 }
 
 .user {
@@ -146,9 +227,25 @@
     font-weight: 900;
     font-size: 18px;
 
+    @include lg {
+      font-size: 16px;
+    }
+
+    @include sm {
+      font-size: 14px;
+    }
+
     &_bayer {
       grid-area: name-bayer;
       font-size: 18px;
+
+      @include lg {
+        font-size: 16px;
+      }
+
+      @include sm {
+        font-size: 14px;
+      }
     }
   }
 
@@ -157,9 +254,25 @@
     font-weight: 900;
     font-size: 18px;
 
+    @include lg {
+      font-size: 16px;
+    }
+
+    @include sm {
+      font-size: 14px;
+    }
+
     &_bayer {
       grid-area: phone-bayer;
       font-size: 18px;
+
+      @include lg {
+        font-size: 16px;
+      }
+
+      @include sm {
+        font-size: 14px;
+      }
     }
   }
 
@@ -168,9 +281,25 @@
     font-weight: 900;
     font-size: 18px;
 
+    @include lg {
+      font-size: 16px;
+    }
+
+    @include sm {
+      font-size: 14px;
+    }
+
     &_bayer {
       grid-area: email-bayer;
       font-size: 18px;
+
+      @include lg {
+        font-size: 16px;
+      }
+
+      @include sm {
+        font-size: 14px;
+      }
     }
   }
 
@@ -179,9 +308,25 @@
     font-weight: 900;
     font-size: 18px;
 
+    @include lg {
+      font-size: 16px;
+    }
+
+    @include sm {
+      font-size: 14px;
+    }
+
     &_bayer {
       grid-area: quantity-bayer;
       font-size: 18px;
+
+      @include lg {
+        font-size: 16px;
+      }
+
+      @include sm {
+        font-size: 14px;
+      }
     }
   }
 
@@ -190,9 +335,25 @@
     font-weight: 900;
     font-size: 18px;
 
+    @include lg {
+      font-size: 16px;
+    }
+
+    @include sm {
+      font-size: 14px;
+    }
+
     &_bayer {
       grid-area: total-price-bayer;
       font-size: 18px;
+
+      @include lg {
+        font-size: 16px;
+      }
+
+      @include sm {
+        font-size: 14px;
+      }
     }
   }
 }
@@ -200,7 +361,6 @@
 .btn__group {
   display: flex;
   gap: 20px;
-
 
   &_item {
     display: flex;
@@ -215,7 +375,6 @@
     transition: all 0.3s ease-in-out;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #000000;
-
 
     &:hover {
       background-color: #646464;
@@ -238,10 +397,56 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   background-color: #000000;
 
-
-
   &:hover {
     background-color: #646464;
     transform: translateY(-2px);
+  }
+}
+
+.burger {
+  width: 40px;
+  height: 24px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all 0.3s ease;
+  top: 70px;
+  left: 30px;
+
+  @include xs {
+    top: 65px;
+  }
+
+  @include xx {
+    top: 56px;
+  }
+}
+
+.burger__line {
+  width: 100%;
+  height: 3px;
+  background-color: #333;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.burger__line {
+  background-color: #000;
+}
+
+.height {
+  height: calc(100vh - 376px);
+
+  @include xs {
+    height: calc(100vh - 371px);
+  }
+
+  @include xx {
+    height: calc(100vh - 369px);
   }
 }

@@ -1,5 +1,5 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '../../redux/store.ts';
+import {useDispatch, useSelector} from 'react-redux'
+import {AppDispatch, RootState} from '../../redux/store.ts'
 import {
   clearPosts,
   fetchAllPosts,
@@ -9,80 +9,88 @@ import {
   removePost,
   editPost,
   addPost,
-  setPage,
-} from '../../redux/postsSlice.ts';
-import {useEffect, useRef, useState} from 'react';
-import {PostInterface} from '../../types/Post.Interface.ts';
-import {FaTrash} from "react-icons/fa6";
-import {FaEdit} from "react-icons/fa";
-import Modal from "../../modals/Modal.tsx";
-import PostForm from "../../components/form/PostForm.tsx";
-import {INITIAL_POST} from "../../data/mockData.ts";
-import {toast, ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from "axios";
-import styles from "./Posts.module.scss";
-import modalStyles from "../../modals/Modal.module.scss";
+  setPage
+} from '../../redux/postsSlice.ts'
+import {useEffect, useRef, useState} from 'react'
+import {PostInterface} from '../../types/Post.Interface.ts'
+import {FaTrash} from "react-icons/fa6"
+import {FaEdit} from "react-icons/fa"
+import Modal from "../../modals/Modal.tsx"
+import PostForm from "../../components/form/PostForm.tsx"
+import {INITIAL_POST} from "../../data/mockData.ts"
+import {toast, ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import axios from "axios"
+import styles from "./Posts.module.scss"
+import modalStyles from "../../modals/Modal.module.scss"
+import Logins from "../../components/Navbar/Logins/Logins.tsx"
+import useModalMenu from "../../hooks/useModalMenu.ts"
 
 const Posts = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const posts = useSelector(selectPosts) || [];
-  const isLoading = useSelector(selectPostsLoading);
-  const error = useSelector(selectPostsError);
-  const {isLogged} = useSelector((state: RootState) => state.auth);
-  const currentPage = useSelector((state: RootState) => state.posts.currentPage);
+  const dispatch = useDispatch<AppDispatch>()
+  const posts = useSelector(selectPosts) || []
+  const isLoading = useSelector(selectPostsLoading)
+  const error = useSelector(selectPostsError)
+  const {isLogged} = useSelector((state: RootState) => state.auth)
+  const currentPage = useSelector((state: RootState) => state.posts.currentPage)
 
-  const [showModal, setShowModal] = useState(false);
-  const [currentPost, setCurrentPost] = useState<PostInterface | null>(null);
-  const [showButton, setShowButton] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-  const postRefs = useRef<{ [key: number]: HTMLLIElement | null }>({});
+  const [showModal, setShowModal] = useState(false)
+  const [currentPost, setCurrentPost] = useState<PostInterface | null>(null)
+  const [showButton, setShowButton] = useState(false)
+  const [totalPages, setTotalPages] = useState(1)
+  const postRefs = useRef<{ [key: number]: HTMLLIElement | null }>({})
+  const {isMenuOpen, isMobile, openMenu, closeMenu} = useModalMenu()
 
   useEffect(() => {
-    dispatch(fetchAllPosts(currentPage));
-  }, [dispatch, currentPage]);
+    dispatch(fetchAllPosts(currentPage))
+  }, [dispatch, currentPage])
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 200) {
-        setShowButton(true);
+        setShowButton(true)
       } else {
-        setShowButton(false);
+        setShowButton(false)
       }
-    };
-
-    window.addEventListener('scroll', handleScroll);
+    }
+    window.addEventListener('scroll', handleScroll)
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const scrollToTop = () => {
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    window.scrollTo({top: 0, behavior: 'smooth'})
   };
 
   const scrollToPost = (id: number) => {
-    const element = postRefs.current[id];
+    const element = postRefs.current[id]
     if (element) {
-      element.scrollIntoView({behavior: 'smooth'});
+      element.scrollIntoView({behavior: 'smooth'})
     }
-  };
+  }
 
-  const handleOpen = (post?: PostInterface) => {
-    setCurrentPost(post || INITIAL_POST);
-    setShowModal(true);
-  };
+  const handleOpen = (post?: Partial<PostInterface>) => {
+    const newPost: PostInterface = {
+      title: post?.title ?? '',
+      description: post?.description ?? '',
+      image: post?.image ?? '',
+      id: post?.id ?? 0,
+    }
+    setCurrentPost(newPost)
+    setShowModal(true)
+  }
 
   const handleClose = () => {
-    setShowModal(false);
-    setCurrentPost(null);
-  };
+    setShowModal(false)
+    setCurrentPost(null)
+  }
 
   const refreshPosts = async () => {
-    dispatch(setPage(1));
-    await dispatch(fetchAllPosts(1));
-    await fetchPostCount();
-  };
+    dispatch(setPage(1))
+    await dispatch(fetchAllPosts(1))
+    await fetchPostCount()
+  }
 
   const handleRemovePost = (postId: number) => {
     if (window.confirm('Вы уверены, что хотите удалить этот пост?')) {
@@ -90,57 +98,57 @@ const Posts = () => {
         .unwrap()
         .then(async () => {
           await refreshPosts();
-          toast.success('Пост успешно удален!');
+          toast.success('Пост успешно удален!')
         })
         .catch((error) => {
-          console.error('Не удалось удалить пост:', error);
-        });
+          console.error('Не удалось удалить пост:', error)
+        })
     }
-  };
+  }
 
   const handleEditPost = (post: PostInterface) => {
     if (post) {
       dispatch(editPost(post))
         .unwrap()
         .then(async () => {
-          await refreshPosts();
-          toast.success('Пост успешно отредактирован!');
+          await refreshPosts()
+          toast.success('Successfully edited post!')
         })
         .catch((error) => {
-          console.error('Не удалось отредактировать пост:', error);
-        });
-      handleClose();
+          console.error('Failed to edit post:', error)
+        })
+      handleClose()
     }
-  };
+  }
 
   const handleAddPost = (post: PostInterface) => {
     if (post) {
       dispatch(addPost(post))
         .unwrap()
         .then(async () => {
-          await refreshPosts();
-          toast.success('Новый пост успешно создан!');
+          await refreshPosts()
+          toast.success('Successfully created post!')
         })
         .catch((error) => {
-          console.error('Не удалось создать пост:', error);
-        });
-      handleClose();
+          console.error('Failed to create post:', error)
+        })
+      handleClose()
     }
   };
 
   const handleClearPosts = () => {
-    if (window.confirm('Вы уверены, что хотите удалить все посты?')) {
+    if (window.confirm('Are you sure you want to delete all posts?')) {
       dispatch(clearPosts())
         .unwrap()
         .then(async () => {
           await refreshPosts();
-          toast.success('Все посты успешно удалены!');
+          toast.success('All posts successfully deleted!')
         })
         .catch((error) => {
-          console.error('Не удалось удалить все посты:', error);
+          console.error('Failed to delete posts:', error)
         });
     }
-  };
+  }
 
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {
@@ -151,31 +159,38 @@ const Posts = () => {
 
   const count = async () => {
     try {
-      const response = await axios.get(`https://66d6c219006bfbe2e64e791a.mockapi.io/posts`);
+      const response = await axios.get(`https://66d6c219006bfbe2e64e791a.mockapi.io/posts`)
       return response.data;
     } catch (error) {
-      console.error('Error fetching posts:', error);
-      throw error;
+      console.error('Error fetching posts:', error)
+      throw error
     }
-  };
+  }
 
   const fetchPostCount = async () => {
     try {
-      const posts = await count();
-      const postCount = posts.length;
-      const pages = Math.ceil(postCount / 5);
-      setTotalPages(pages);
+      const posts = await count()
+      const postCount = posts.length
+      const pages = Math.ceil(postCount / 5)
+      setTotalPages(pages)
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchPostCount();
-  }, []);
+    fetchPostCount()
+  }, [])
+
+  const handleBurgerClick = () => {
+    if (!isMenuOpen) {
+      openMenu()
+    } else {
+      closeMenu()
+    }
+  }
 
   return (
-
     <>
       <h1 className={styles.posts__title}>POSTS</h1>
       <div className={styles.posts__container}>
@@ -186,32 +201,64 @@ const Posts = () => {
         {!isLoading && !error && (
           <div className={styles.posts__content}>
 
-            <ul className={styles.posts__menu}>
-              {posts.length > 0 ? (
-                posts.map((post: PostInterface) => (
-                  <li key={post.id} className={styles.posts__menu_item}>
-                    <button className={styles.posts__menu_link} onClick={() => scrollToPost(post.id)}>
-                      {post.title}
-                    </button>
-                  </li>
-                ))
-              ) : (
-                <li className={styles.posts__menu_item}>Posts not found</li>
-              )}
-            </ul>
+            {isMobile && (
+              <button onClick={handleBurgerClick} className={styles.burger}>
+                <span className={styles.burger__line}></span>
+                <span className={styles.burger__line}></span>
+                <span className={styles.burger__line}></span>
+              </button>
+            )}
+
+            {isMenuOpen && (
+              <Modal onClose={closeMenu} className={modalStyles.modal__overlay_cat}>
+                <Logins/>
+                <ul className={styles.posts__menu}>
+                  {posts.length > 0 ? (
+                    posts.map((post: PostInterface) => (
+                      <li key={post.id} className={styles.posts__menu_item}>
+                        <button className={styles.posts__menu_link}
+                                onClick={() => {
+                                  if (post.id !== undefined) {
+                                    scrollToPost(post.id);
+                                  }
+                                }}>
+                          {post.title}
+                        </button>
+                      </li>
+                    ))
+                  ) : (
+                    <li className={styles.posts__menu_item}>Posts not found</li>
+                  )}
+                </ul>
+              </Modal>
+            )}
+
+            {!isMobile && (
+              <ul className={styles.posts__menu}>
+                {posts.length > 0 ? (
+                  posts.map((post: PostInterface) => (
+                    <li key={post.id} className={styles.posts__menu_item}>
+                      <button className={styles.posts__menu_link}
+                              onClick={() => {
+                                if (post.id !== undefined) {
+                                  scrollToPost(post.id);
+                                }
+                              }}>
+                        {post.title}
+                      </button>
+                    </li>
+                  ))
+                ) : (
+                  <li className={styles.posts__menu_item}>Posts not found</li>
+                )}
+              </ul>
+            )}
 
             <div className={styles.post__items}>
-
-
               {isLogged && (
                 <div className={styles.posts__actions}>
-                  <button className={styles.posts__actions_btn} onClick={handleClearPosts}>
-                    Delete all posts
-                  </button>
-
-                  <button className={styles.posts__actions_btn} onClick={() => handleOpen()}>
-                    Create new post
-                  </button>
+                  <button className={styles.posts__actions_btn} onClick={handleClearPosts}>Delete all posts</button>
+                  <button className={styles.posts__actions_btn} onClick={() => handleOpen()}>Create new post</button>
 
                   {showModal && (
                     <Modal onClose={handleClose}>
@@ -221,8 +268,7 @@ const Posts = () => {
 
                       {error && <p className="error">{error}</p>}
 
-                      <PostForm onSubmit={currentPost?.id ? handleEditPost : handleAddPost}
-                                post={currentPost || INITIAL_POST}/>
+                      <PostForm onSubmit={currentPost?.id ? handleEditPost : handleAddPost} post={currentPost || INITIAL_POST}/>
                     </Modal>
                   )}
                 </div>
@@ -260,14 +306,28 @@ const Posts = () => {
                 {posts.length > 0 ? (
                   posts.map((post: PostInterface) => (
 
-                    <li key={post.id} className={styles.post__item} ref={(el) => (postRefs.current[post.id] = el)}>
+                    <li
+                      key={post.id}
+                      className={styles.post__item}
+                      ref={(el) => {
+                        if (post.id !== undefined) {
+                          postRefs.current[post.id] = el; // Убедитесь, что post.id определен
+                        }
+                      }}
+                    >
                       <h3 className={styles.post__title}>{post.title}</h3>
                       <p className={styles.post__description}>{post.description}</p>
                       <img className={styles.post__image} src={post.image} alt="Изображение поста"/>
 
                       {isLogged && (
                         <div className={styles.post__actions}>
-                          <button className={styles.post__btn} onClick={() => handleRemovePost(post.id)}>
+                          <button className={styles.post__btn}
+                            // onClick={() => handleRemovePost(post.id)}>
+                                  onClick={() => {
+                                    if (post.id !== undefined) {
+                                      handleRemovePost(post.id);
+                                    }
+                                  }}>
                             <FaTrash/>
                           </button>
 
@@ -283,14 +343,11 @@ const Posts = () => {
                 )}
               </ul>
             </div>
-
           </div>
         )}
 
         {showButton && (
-          <button className={`${styles.button_prev} ${styles.show}`} onClick={scrollToTop}>
-            ↑ Back to top
-          </button>
+          <button className={`${styles.button_prev} ${styles.show}`} onClick={scrollToTop}>↑ Back to top</button>
         )}
 
         <ToastContainer/>
@@ -299,4 +356,4 @@ const Posts = () => {
   )
 }
 
-export default Posts;
+export default Posts

@@ -1,6 +1,5 @@
 .register {
 
-
   &__title {
     text-align: center;
     background-color: black;
@@ -45,14 +44,12 @@
 
   }
 
-
   &__error {
     color: red;
     font-size: 12px;
     margin-top: 5px;
     position: absolute;
   }
-
 
   &__actions {
     display: flex;
@@ -74,12 +71,11 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #000000;
 
-
-  &:hover {
-    background-color: #646464;
-    transform: translateY(-2px);
+    &:hover {
+      background-color: #646464;
+      transform: translateY(-2px);
+    }
   }
-}
 }
 
 

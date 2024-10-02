@@ -1,21 +1,21 @@
-import { ChangeEvent } from 'react';
-import { ProductCategoriesInterface } from "../../data/mockData.ts";
-import styles from "./Form.module.scss";
+import { ChangeEvent } from 'react'
+import { ProductCategoriesInterface } from "../../data/mockData.ts"
+import styles from "./Form.module.scss"
 
 interface SelectFieldPropsInterface {
-  id: string;
-  value: string;
-  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
-  options: ProductCategoriesInterface[];
-  required?: boolean;
-  className?: string; // Добавлен новый пропс
+  id: string
+  value: string
+  onChange: (event: ChangeEvent<HTMLSelectElement>) => void
+  options: ProductCategoriesInterface[]
+  required?: boolean
+  className?: string
 }
 
 const SelectField = ({ id, value, onChange, options, required = true, className = '' }: SelectFieldPropsInterface) => {
   return (
     <div>
       <select
-        className={`${styles.form__control} ${className}`} // Применение классов
+        className={`${styles.form__control} ${className}`}
         id={id}
         value={value}
         onChange={onChange}
@@ -28,7 +28,7 @@ const SelectField = ({ id, value, onChange, options, required = true, className 
         ))}
       </select>
     </div>
-  );
+  )
 }
 
-export default SelectField;
+export default SelectField

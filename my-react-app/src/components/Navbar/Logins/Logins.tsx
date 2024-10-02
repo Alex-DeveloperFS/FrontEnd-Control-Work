@@ -1,30 +1,34 @@
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../redux/store.ts";
-import {login, logout} from "../../redux/authSlice.ts";
-import styles from "./Navbar.module.scss";
-import {RiAdminFill} from "react-icons/ri";
-import Card from "../Card/Card.tsx";
-import {FaRegUser} from "react-icons/fa";
-import {NavLink, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux"
+import {AppDispatch, RootState} from "../../../redux/store.ts"
+import {login, logout} from "../../../redux/authSlice.ts"
+import {RiAdminFill} from "react-icons/ri"
+import Card from "../../Card/Card.tsx"
+import {FaRegUser} from "react-icons/fa"
+import {NavLink, useNavigate} from "react-router-dom"
+import {MdAppRegistration} from "react-icons/md"
+
+import styles from "./Logins.module.scss"
 
 const Logins = () => {
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
   const {isLogged} = useSelector((state: RootState) => state.auth)
 
   const handleLogin = () => {
-    dispatch(login());
-  };
+    dispatch(login())
+  }
 
   const handleLogout = () => {
-    dispatch(logout());
-    navigate('/');
-  };
+    dispatch(logout())
+    navigate('/')
+  }
 
   return (
     <div>
       <ul className={styles.navbar__list}>
+        <div className={styles.navbar__logo}>
+          <p>SMARTSHOP<span className={styles.navbar__logo_span}>.COM</span></p>
+        </div>
 
         <NavLink to="/" className={styles.navbar__link}>
           Products
@@ -34,10 +38,9 @@ const Logins = () => {
           Posts
         </NavLink>
 
-
         {isLogged ? null : (
           <li className="navbar__item basket">
-            <Card product={{id: '', name: '', description: '', category: '', price: '', image: ''}}/>
+            <Card product={{id: '', name: '', brand: '', description: '', category: '', price: 0, image: ''}}/>
           </li>
         )}
 
@@ -49,7 +52,7 @@ const Logins = () => {
               </NavLink>
             </li>
             <li className={styles.navbar__link}>
-              <NavLink to="/users" >
+              <NavLink to="/users">
                 Users
               </NavLink>
             </li>
@@ -70,11 +73,12 @@ const Logins = () => {
           </li>
         )}
 
-
-
+        <NavLink to="/register" className={styles.navbar__link}>
+          <MdAppRegistration/>
+        </NavLink>
       </ul>
-
     </div>
   )
 }
+
 export default Logins
