@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ProductInterface } from '../types/Product.interface.ts'
+import { ProductInterface } from '../types/Product.Interface.ts'
 
 interface BasketState {
   items: {
@@ -14,7 +14,7 @@ const initialState: BasketState = {
   items: {},
 }
 
-const basketSlice = createSlice({
+const cartSlice = createSlice({
   name: 'basket',
   initialState,
   reducers: {
@@ -50,5 +50,5 @@ const basketSlice = createSlice({
   },
 })
 
-export const { addToBasket, removeFromBasket, clearBasket, increaseQuantity, decreaseQuantity } = basketSlice.actions
-export default basketSlice.reducer
+export const { addToBasket, removeFromBasket, clearBasket, increaseQuantity, decreaseQuantity } = cartSlice.actions
+export default cartSlice.reducer

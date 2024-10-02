@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 
 const useModalMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth); // Исправлено
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -11,13 +11,9 @@ const useModalMenu = () => {
   };
 
   useEffect(() => {
-    // Устанавливаем начальную ширину окна
-    setWindowWidth(window.innerWidth);
-
-    // Добавляем обработчик события изменения размера
     window.addEventListener('resize', handleResize);
 
-    // Убираем обработчик события при размонтировании компонента
+    // Очистка эффекта
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -26,7 +22,7 @@ const useModalMenu = () => {
   const openMenu = () => setIsMenuOpen(true);
   const closeMenu = () => setIsMenuOpen(false);
 
-  return { isMenuOpen, isMobile, openMenu, closeMenu };
+  return { isMenuOpen, isMobile, openMenu, closeMenu, windowWidth }; // Добавьте windowWidth в возвращаемые значения, если нужно
 };
 
 export default useModalMenu;
