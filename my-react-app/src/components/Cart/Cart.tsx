@@ -66,11 +66,15 @@ const Cart : FC<CardProps> = () => {
 
   return (
     <>
+
+
       <button className={navbarStyles.navbar__link} onClick={handleOpen}>
         <FaShoppingCart/>
+
+        {totalQuantity > 0 && <span className={styles.cart__count}>{totalQuantity}</span>}
       </button>
 
-      {totalQuantity > 0 && <span className={styles.cart__count}>{totalQuantity}</span>}
+
 
       {showModal && (
 

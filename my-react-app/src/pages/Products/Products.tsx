@@ -117,7 +117,7 @@ const Products = () => {
 
   return (
     <>
-      <h1 className={styles.productsTitle}>PRODUCTS</h1>
+      <h1 className={styles.products__title}>PRODUCTS</h1>
 
 
 

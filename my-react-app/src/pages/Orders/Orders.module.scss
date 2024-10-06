@@ -9,7 +9,7 @@
     min-height: calc(100vh - 651px);
 
     @include ul-min {
-      min-height: calc(100vh - 626px);
+      min-height: calc(100vh - 593px);
     }
 
     @include ul {
@@ -17,7 +17,7 @@
     }
 
     @include ul-xl {
-      min-height: calc(100vh - 601px);
+      min-height: calc(100vh - 564px);
     }
 
     @include xl {
@@ -25,23 +25,23 @@
     }
 
     @include xl-lg {
-      min-height: calc(100vh - 579px);
+      min-height: calc(100vh - 547px);
     }
 
     @include lg {
-      min-height: calc(100vh - 492px);
+      min-height: calc(100vh - 465px);
     }
 
     @include sm {
-      min-height: calc(100vh - 461px);
+      min-height: calc(100vh - 437px);
     }
 
     @include xs {
-      min-height: calc(100vh - 451px);
+      min-height: calc(100vh - 427px);
     }
 
     @include xx {
-      min-height: calc(100vh - 431px);
+      min-height: calc(100vh - 407px);
     }
   }
 
@@ -52,6 +52,7 @@
     padding-top: 25px;
     padding-bottom: 25px;
     letter-spacing: 5px;
+    margin: 0;
 
     @include sm {
       padding-top: 15px;
@@ -415,15 +416,15 @@
   border: none;
   background: none;
   transition: all 0.3s ease;
-  top: 70px;
+  top: 65px;
   left: 30px;
 
   @include xs {
-    top: 65px;
+    top: 60px;
   }
 
   @include xx {
-    top: 56px;
+    top: 50px;
   }
 }
 

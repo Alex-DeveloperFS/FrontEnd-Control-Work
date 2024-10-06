@@ -4,6 +4,10 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import {toast, ToastContainer} from "react-toastify"
 import styles from './Register.module.scss'
+import useModalMenu from "../../hooks/useModalMenu.ts";
+import Modal from "../../modals/Modal.tsx";
+import modalStyles from "../../modals/Modal.module.scss";
+import Logins from "../../components/Navbar/Logins/Logins.tsx";
 
 const registerSchema = yup.object({
   username: yup.string().required('Username is required').min(3, 'Username must be at least 3 characters'),
@@ -22,6 +26,9 @@ interface FormValues {
 }
 
 const RegisterForm: FC = () => {
+
+  const {isMenuOpen, isMobile, openMenu, closeMenu} = useModalMenu()
+
   const {register, handleSubmit, formState: {errors}, reset} = useForm<FormValues>({
     resolver: yupResolver(registerSchema),
   })
@@ -53,9 +60,33 @@ const RegisterForm: FC = () => {
     }
   }
 
+  const handleBurgerClick = () => {
+    if (!isMenuOpen) {
+      openMenu();
+    } else {
+      closeMenu();
+    }
+  }
+
   return (
     <>
       <h1 className={styles.register__title}>REGISTER</h1>
+
+      {isMobile && (
+        <button onClick={handleBurgerClick} className={styles.burger}>
+          <span className={styles.burger__line}></span>
+          <span className={styles.burger__line}></span>
+          <span className={styles.burger__line}></span>
+        </button>
+      )}
+
+      {isMenuOpen && (
+        <Modal onClose={closeMenu} className={modalStyles.modal__overlay_cat}>
+          <Logins/>
+          <div className={styles.height}></div>
+        </Modal>
+      )}
+
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.register__form}>
 

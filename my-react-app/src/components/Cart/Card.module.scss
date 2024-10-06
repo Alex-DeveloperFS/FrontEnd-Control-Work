@@ -78,8 +78,8 @@
 
   &__count {
     position: absolute;
-    top: 58px;
-    right: 121px;
+    top: -5px;
+    right: -2px;
     background-color: red; /* Цвет фона индикатора */
     color: white; /* Цвет текста индикатора */
     border-radius: 50%;
@@ -89,7 +89,8 @@
     text-align: center;
 
     @include lg {
-  display: none;
+      top: -4px;
+      right: 0;
     }
 
 
@@ -105,7 +106,7 @@
 
   &__items {
     display: grid;
-    grid-template-columns: 17% 44% 9% 10% 16%;
+    grid-template-columns: 17% 39% 12% 10% 16%;
     grid-template-rows: 1fr 1fr;
     gap: 0 5px;
     grid-template-areas:
