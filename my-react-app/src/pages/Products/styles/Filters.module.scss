@@ -9,16 +9,9 @@
   @include lg {
     width: 100%;
     padding-top: 5px;
-    height: calc(100vh - 376px);
+    height: 100%;
   }
 
-  @include xs {
-    height: calc(100vh - 371px);
-  }
-
-  @include xx {
-   height: calc(100vh - 369px);
-  }
 }
 
 .filters__title {

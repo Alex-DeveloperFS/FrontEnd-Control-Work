@@ -25,7 +25,7 @@ import {fetchCategories} from "../../redux/categoriesSlice.ts"
 import styles from "./styles/Products.module.scss"
 import modalStyles from "../../modals/Modal.module.scss"
 import filtersStyles from "./styles/Filters.module.scss"
-import testStyles from "./Test.module.scss"
+
 
 const Products = () => {
   const [page, setPage] = useState(1)
@@ -119,7 +119,7 @@ const Products = () => {
     <>
       <h1 className={styles.productsTitle}>PRODUCTS</h1>
 
-      <h2 className={testStyles.myTest}>TEST</h2>
+
 
       <div className={styles.container__products}>
 
