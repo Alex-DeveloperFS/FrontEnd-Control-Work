@@ -1,3 +1,5 @@
+@import '../../styles/_mixins-media.scss';
+
 .register {
 
   &__title {
@@ -10,7 +12,7 @@
   }
 
   &__form {
-    max-width: 25%;
+    max-width: 35%;
     margin: 50px auto auto;
     padding: 20px;
     background-color: rgba(225, 225, 225, 0.91);
@@ -18,6 +20,25 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
+
+    @include lg {
+      max-width: 50%;
+    }
+
+    @include md{
+      max-width: 60%;
+    }
+
+    @include sm{
+      max-width: 70%;
+    }
+
+    @include xs{
+      max-width: 80%;
+    }
+
+
+
 
   }
 
