@@ -89,9 +89,10 @@
     text-align: center;
 
     @include lg {
-      top: -8px;
-      right: -2px;
+  display: none;
     }
+
+
   }
 
 }

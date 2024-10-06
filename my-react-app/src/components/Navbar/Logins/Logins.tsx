@@ -39,7 +39,7 @@ const Logins = () => {
         </NavLink>
 
         {isLogged ? null : (
-          <li className="navbar__item basket">
+          <li className="navbar__item">
             <Cart product={{id: '', name: '', brand: '', description: '', category: '', price: 0, image: ''}}/>
           </li>
         )}
