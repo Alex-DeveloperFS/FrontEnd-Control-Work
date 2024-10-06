@@ -1,4 +1,6 @@
+@import "./styles/reset.css";
 @import 'normalize.css';
+
 
 * {
     box-sizing: border-box;
