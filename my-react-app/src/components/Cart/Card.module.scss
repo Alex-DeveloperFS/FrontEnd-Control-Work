@@ -1,3 +1,5 @@
+@import '../../styles/_mixins-media.scss';
+
 .cart {
 
   &__content {
@@ -73,6 +75,25 @@
       }
     }
   }
+
+  &__count {
+    position: absolute;
+    top: 58px;
+    right: 121px;
+    background-color: red; /* Цвет фона индикатора */
+    color: white; /* Цвет текста индикатора */
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px; /* Размер шрифта индикатора */
+    font-weight: bold;
+    text-align: center;
+
+    @include lg {
+      top: -8px;
+      right: -2px;
+    }
+  }
+
 }
 
 .product {

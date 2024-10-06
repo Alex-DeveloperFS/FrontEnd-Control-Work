@@ -16,7 +16,7 @@ interface CardProps {
   product: ProductInterface;
 }
 
-const Card : FC<CardProps> = () => {
+const Cart : FC<CardProps> = () => {
   const [showModal, setShowModal] = useState(false)
   const [showBuyForm, setShowBuyForm] = useState(false)
 
@@ -70,7 +70,7 @@ const Card : FC<CardProps> = () => {
         <FaShoppingCart/>
       </button>
 
-      {totalQuantity > 0 && <span className="cart__count">{totalQuantity}</span>}
+      {totalQuantity > 0 && <span className={styles.cart__count}>{totalQuantity}</span>}
 
       {showModal && (
 
@@ -136,4 +136,4 @@ const Card : FC<CardProps> = () => {
   )
 }
 
-export default Card
+export default Cart

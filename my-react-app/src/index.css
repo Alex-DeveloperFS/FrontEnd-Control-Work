@@ -1,3 +1,5 @@
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -27,21 +29,26 @@ a {
     text-align: center;
 }
 
-.cart__count {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background-color: red; /* Цвет фона индикатора */
-    color: white; /* Цвет текста индикатора */
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 12px; /* Размер шрифта индикатора */
-    font-weight: bold;
-    text-align: center;
-}
+/*.cart__count {*/
+/*    position: absolute;*/
+/*    top: -10px;*/
+/*    right: -10px;*/
+/*    background-color: red; !* Цвет фона индикатора *!*/
+/*    color: white; !* Цвет текста индикатора *!*/
+/*    border-radius: 50%;*/
+/*    padding: 2px 6px;*/
+/*    font-size: 12px; !* Размер шрифта индикатора *!*/
+/*    font-weight: bold;*/
+/*    text-align: center;*/
+
+
+
+/*}*/
 
 .cart {
     position: relative;
+
+
 }
 
 

@@ -2,7 +2,7 @@ import {NavLink, useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootState} from '../../redux/store.ts'
 import {login, logout} from '../../redux/authSlice.ts'
-import Card from "../Card/Card.tsx"
+import Cart from "../Cart/Cart.tsx"
 import {RiAdminFill} from "react-icons/ri"
 import {FaRegUser} from "react-icons/fa"
 import {MdAppRegistration} from "react-icons/md"
@@ -46,7 +46,7 @@ const Navbar = () => {
             ) : (
               <>
                 <li className="cart">
-                  <Card product={{id: '', name: '', brand: '', description: '', category: '', price: 0, image: ''}}/>
+                  <Cart product={{id: '', name: '', brand: '', description: '', category: '', price: 0, image: ''}}/>
                 </li>
                 <li>
                   <button onClick={handleLogin} className={styles.navbar__link}>
@@ -71,7 +71,7 @@ const Navbar = () => {
 
             {isLogged ? null : (
               <li className="navbar__item basket">
-                <Card product={{id: '', name: '', brand: '', description: '', category: '', price: 0, image: ''}}/>
+                <Cart product={{id: '', name: '', brand: '', description: '', category: '', price: 0, image: ''}}/>
               </li>
             )}
 

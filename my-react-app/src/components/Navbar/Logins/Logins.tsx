@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {AppDispatch, RootState} from "../../../redux/store.ts"
 import {login, logout} from "../../../redux/authSlice.ts"
 import {RiAdminFill} from "react-icons/ri"
-import Card from "../../Card/Card.tsx"
+import Cart from "../../Cart/Cart.tsx"
 import {FaRegUser} from "react-icons/fa"
 import {NavLink, useNavigate} from "react-router-dom"
 import {MdAppRegistration} from "react-icons/md"
@@ -40,7 +40,7 @@ const Logins = () => {
 
         {isLogged ? null : (
           <li className="navbar__item basket">
-            <Card product={{id: '', name: '', brand: '', description: '', category: '', price: 0, image: ''}}/>
+            <Cart product={{id: '', name: '', brand: '', description: '', category: '', price: 0, image: ''}}/>
           </li>
         )}
 
